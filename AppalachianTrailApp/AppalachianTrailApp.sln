@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppalachianTrailApp", "AppalachianTrailApp.csproj", "{1A9477C5-F068-4C1F-B1DC-97514C0E7D30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A9477C5-F068-4C1F-B1DC-97514C0E7D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A9477C5-F068-4C1F-B1DC-97514C0E7D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A9477C5-F068-4C1F-B1DC-97514C0E7D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A9477C5-F068-4C1F-B1DC-97514C0E7D30}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44F552E8-F54B-4936-8D17-EF0A8DF4B215}
+	EndGlobalSection
+EndGlobal
