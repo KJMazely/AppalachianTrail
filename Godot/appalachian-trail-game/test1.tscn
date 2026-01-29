@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3an1yda2qqru"]
+[gd_scene load_steps=7 format=3 uid="uid://c3an1yda2qqru"]
 
 [ext_resource type="Script" uid="uid://djoiljyhtei0o" path="res://player.gd" id="1_oucmq"]
 [ext_resource type="Texture2D" uid="uid://w5qbb1ft8c4i" path="res://sprites/Horse_Wagon_1.png" id="2_k1aq6"]
 [ext_resource type="Texture2D" uid="uid://cb2wapfg0fc12" path="res://top-down_40x40_tilesets_-_preview_field.png" id="3_2rvgm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2rvgm"]
+size = Vector2(229, 212.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05d0c"]
+size = Vector2(235, 285.5)
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_k1aq6"]
 points = PackedVector2Array(30, -8, 20, -19, -11, -19, -11, 14, 20, 14, 30, 4, 42, 1, 44, -1, 44, -4, 41, -6)
@@ -13,6 +19,16 @@ position = Vector2(3, 23)
 [node name="TopDown40x40TilesetsPreviewField" type="Sprite2D" parent="."]
 position = Vector2(5, -34)
 texture = ExtResource("3_2rvgm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TopDown40x40TilesetsPreviewField"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopDown40x40TilesetsPreviewField/StaticBody2D"]
+position = Vector2(121.5, 135.75)
+shape = SubResource("RectangleShape2D_2rvgm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TopDown40x40TilesetsPreviewField/StaticBody2D"]
+position = Vector2(-359.5, -63.75)
+shape = SubResource("RectangleShape2D_05d0c")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(-3, -23)
@@ -27,3 +43,4 @@ position = Vector2(-15, 2)
 shape = SubResource("ConvexPolygonShape2D_k1aq6")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.8, 0.8)
