@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3an1yda2qqru"]
+[gd_scene load_steps=9 format=3 uid="uid://c3an1yda2qqru"]
 
-[ext_resource type="Script" uid="uid://djoiljyhtei0o" path="res://player.gd" id="1_oucmq"]
+[ext_resource type="Script" path="res://player.gd" id="1_oucmq"]
 [ext_resource type="Texture2D" uid="uid://w5qbb1ft8c4i" path="res://sprites/Horse_Wagon_1.png" id="2_k1aq6"]
 [ext_resource type="Texture2D" uid="uid://cb2wapfg0fc12" path="res://top-down_40x40_tilesets_-_preview_field.png" id="3_2rvgm"]
+[ext_resource type="Texture2D" uid="uid://dl6ud6x3j8lx5" path="res://Ram.png" id="4_05d0c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2rvgm"]
 size = Vector2(229, 212.5)
@@ -13,14 +14,18 @@ size = Vector2(235, 285.5)
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_k1aq6"]
 points = PackedVector2Array(30, -8, 20, -19, -11, -19, -11, 14, 20, 14, 30, 4, 42, 1, 44, -1, 44, -4, 41, -6)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhy6t"]
+size = Vector2(39, 20)
+
 [node name="Node2D" type="Node2D"]
 position = Vector2(3, 23)
 
 [node name="TopDown40x40TilesetsPreviewField" type="Sprite2D" parent="."]
-position = Vector2(5, -34)
+position = Vector2(22, -90)
 texture = ExtResource("3_2rvgm")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TopDown40x40TilesetsPreviewField"]
+position = Vector2(-4, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopDown40x40TilesetsPreviewField/StaticBody2D"]
 position = Vector2(121.5, 135.75)
@@ -44,3 +49,20 @@ shape = SubResource("ConvexPolygonShape2D_k1aq6")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(0.8, 0.8)
+
+[node name="Enemy1" type="Node2D" parent="."]
+position = Vector2(-105, -138)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy1"]
+position = Vector2(1, -43)
+scale = Vector2(1.109375, 1.03125)
+texture = ExtResource("4_05d0c")
+
+[node name="Area2D" type="Area2D" parent="Enemy1"]
+position = Vector2(-2, -2)
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy1/Area2D"]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_qhy6t")
