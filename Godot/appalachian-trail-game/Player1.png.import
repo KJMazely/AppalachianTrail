@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6ecttq53hhv"
-path="res://.godot/imported/Horse_Wagon_1.png-7229c5f95a6a3dba9703dfe6df5c106a.ctex"
+uid="uid://dkxeullwg62wc"
+path="res://.godot/imported/Player1.png-d739c8752c0c8225e3dbbfdc48225f14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Horse_Wagon_1.png"
-dest_files=["res://.godot/imported/Horse_Wagon_1.png-7229c5f95a6a3dba9703dfe6df5c106a.ctex"]
+source_file="res://Player1.png"
+dest_files=["res://.godot/imported/Player1.png-d739c8752c0c8225e3dbbfdc48225f14.ctex"]
 
 [params]
 
