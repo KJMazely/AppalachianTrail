@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj56ph6i7uotv"
-path="res://.godot/imported/Hippie.png-f649ce6363c15feacbb33eb38a5e9ced.ctex"
+uid="uid://b0okmroon6mxu"
+path="res://.godot/imported/Hippie_Bullet.png-a3d1bf72524fe4a3047144107b2166d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Hippie.png"
-dest_files=["res://.godot/imported/Hippie.png-f649ce6363c15feacbb33eb38a5e9ced.ctex"]
+source_file="res://sprites/props/bullets/Hippie_Bullet.png"
+dest_files=["res://.godot/imported/Hippie_Bullet.png-a3d1bf72524fe4a3047144107b2166d1.ctex"]
 
 [params]
 

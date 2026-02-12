@@ -17,6 +17,7 @@ var get_direction: Vector2 = Vector2.ZERO
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var muzzle_flash: Sprite2D = $MuzzleFlash
+@onready var gun = $Gun
 
 
 
@@ -30,8 +31,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		attack()
 
 func _physics_process(delta):
+	
+	if Input.is_action_pressed("attack"):
+		gun.shoot()
+	
 	movement_loop()
 	#look_at(get_global_mouse_position())
+	
+	
 
 func movement_loop() -> void:
 	muzzle_flash.visible = false
@@ -39,6 +46,10 @@ func movement_loop() -> void:
 	get_direction.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 	var motion: Vector2 = get_direction.normalized() * speed
 	set_velocity(motion)
+	
+	if get_direction != Vector2.ZERO:
+		gun.setup_direction(get_direction)
+	
 	move_and_slide()
 	
 	#sprite flip

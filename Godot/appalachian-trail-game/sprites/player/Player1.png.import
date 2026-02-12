@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3etdnx7r31ix"
-path="res://.godot/imported/Cougar.png-af550ce02440311dd4f1a8cec4442423.ctex"
+uid="uid://cv8f5vgemxfpu"
+path="res://.godot/imported/Player1.png-cc72b9edbdff5d810d44882d3cf5dc72.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Cougar.png"
-dest_files=["res://.godot/imported/Cougar.png-af550ce02440311dd4f1a8cec4442423.ctex"]
+source_file="res://sprites/player/Player1.png"
+dest_files=["res://.godot/imported/Player1.png-cc72b9edbdff5d810d44882d3cf5dc72.ctex"]
 
 [params]
 

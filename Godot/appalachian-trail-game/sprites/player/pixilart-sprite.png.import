@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0okmroon6mxu"
-path="res://.godot/imported/Hippie_Bullet.png-0c29154d867cd10e453146aaa349199c.ctex"
+uid="uid://c5lp50kn12dhd"
+path="res://.godot/imported/pixilart-sprite.png-de2acf87fe571c3a78eeca45c265c4e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Hippie_Bullet.png"
-dest_files=["res://.godot/imported/Hippie_Bullet.png-0c29154d867cd10e453146aaa349199c.ctex"]
+source_file="res://sprites/player/pixilart-sprite.png"
+dest_files=["res://.godot/imported/pixilart-sprite.png-de2acf87fe571c3a78eeca45c265c4e7.ctex"]
 
 [params]
 

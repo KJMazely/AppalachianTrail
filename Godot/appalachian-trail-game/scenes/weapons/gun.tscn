@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ck17v02xg4jkk"]
+
+[ext_resource type="Script" uid="uid://pk1hgcqnb418" path="res://scenes/weapons/gun.gd" id="1_76485"]
+
+[node name="Gun" type="Node2D" unique_id=384517215]
+position = Vector2(0, -1)
+script = ExtResource("1_76485")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1540098242]
+
+[node name="shootSpeedTimer" type="Timer" parent="." unique_id=1861031740]
+
+[connection signal="timeout" from="shootSpeedTimer" to="." method="_on_shoot_speed_timer_timeout"]
