@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6ecttq53hhv"
-path="res://.godot/imported/Horse_Wagon_1.png-7229c5f95a6a3dba9703dfe6df5c106a.ctex"
+uid="uid://3etdnx7r31ix"
+path="res://.godot/imported/Cougar.png-f7f79cfb0bc33ed7e034daa4a7c5b634.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Horse_Wagon_1.png"
-dest_files=["res://.godot/imported/Horse_Wagon_1.png-7229c5f95a6a3dba9703dfe6df5c106a.ctex"]
+source_file="res://sprites/enemies/Cougar.png"
+dest_files=["res://.godot/imported/Cougar.png-f7f79cfb0bc33ed7e034daa4a7c5b634.ctex"]
 
 [params]
 
