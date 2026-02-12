@@ -92,7 +92,7 @@ states/moving/position = Vector2(556, 68)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i")]
 graph_offset = Vector2(-393.82324, -111.80548)
 
-[node name="Player" type="CharacterBody2D" unique_id=1734132446]
+[node name="Enemy" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_essrt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]

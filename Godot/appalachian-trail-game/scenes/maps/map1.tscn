@@ -1,8 +1,17 @@
 [gd_scene format=3 uid="uid://yvkmnu84xknb"]
 
+[ext_resource type="PackedScene" uid="uid://cp47ufubbddw" path="res://scenes/entities/enemies/enemy.tscn" id="1_plhdw"]
+[ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="2_f488b"]
+
 [sub_resource type="TileSet" id="TileSet_f208s"]
 
 [node name="PlainsMap" type="Node2D" unique_id=393858254]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1457752816]
 tile_set = SubResource("TileSet_f208s")
+
+[node name="Enemy" parent="." unique_id=1734132446 instance=ExtResource("1_plhdw")]
+position = Vector2(-61, -102)
+
+[node name="Player" parent="." unique_id=2002548695 instance=ExtResource("2_f488b")]
+position = Vector2(77, -67)
