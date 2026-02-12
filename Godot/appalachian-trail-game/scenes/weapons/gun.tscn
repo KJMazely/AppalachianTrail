@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://pk1hgcqnb418" path="res://scenes/weapons/gun.gd" id="1_76485"]
 
 [node name="Gun" type="Node2D" unique_id=384517215]
-position = Vector2(0, -1)
 script = ExtResource("1_76485")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1540098242]
