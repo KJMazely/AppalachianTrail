@@ -18,6 +18,7 @@ var get_direction: Vector2 = Vector2.ZERO
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var muzzle_flash: Sprite2D = $MuzzleFlash
 @onready var gun = $Gun
+const offset = 1
 
 
 
@@ -53,8 +54,10 @@ func movement_loop() -> void:
 	if state == State.IDLE or State.MOVING:
 		if get_direction.x < -0.01:
 			$Sprite2D.flip_h = true
+			$Gun.position.x = 4
 		elif get_direction.x > 0.01:
 			$Sprite2D.flip_h = false
+			$Gun.position.x = -4
 
 	# sprite animation
 	if motion != Vector2.ZERO and state == State.IDLE:
@@ -80,7 +83,7 @@ func attack() -> void:
 	if state == State.ATTACK:
 		return
 	#muzzle_flash.visible = true
-	state = State.ATTACK
+	
 	gun.shoot()
 	update_animation()
 	

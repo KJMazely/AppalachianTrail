@@ -6,7 +6,7 @@ extends Area2D
 var direction:Vector2
 
 func _ready() -> void:
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(10).timeout
 	queue_free()
 
 func set_direction(bulletDirection):

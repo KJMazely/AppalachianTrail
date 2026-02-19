@@ -32,7 +32,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [0]
 }
 
@@ -49,7 +49,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.006116707, 0.038544536, 0.077943526),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [2, 0, 1, 2]
 }
 
@@ -79,7 +79,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.01020851),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [2]
 }
 
@@ -100,14 +100,64 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MuzzleFlash:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_8akj5"]
+resource_name = "muzzlemoving"
+length = 0.403
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MuzzleFlash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bjvvg"]
 _data = {
 &"RESET": SubResource("Animation_635qg"),
 &"attack": SubResource("Animation_bjvvg"),
 &"idle": SubResource("Animation_58kc7"),
-&"moving": SubResource("Animation_nh4ur")
+&"moving": SubResource("Animation_nh4ur"),
+&"muzzlemoving": SubResource("Animation_8akj5")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1murt"]
+animation = &"muzzlemoving"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nh4ur"]
+animation = &"moving"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_5sj0x"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bjvvg"]
+graph_offset = Vector2(-294.53555, -93.076706)
+nodes/output/position = Vector2(496, 48)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_nh4ur")
+nodes/Animation/position = Vector2(16, 0)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1murt")
+"nodes/Animation 2/position" = Vector2(32, 272)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_5sj0x")
+nodes/Blend2/position = Vector2(240, 112)
+node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"Animation", &"Blend2", 1, &"Animation 2"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_635qg"]
 animation = &"attack"
@@ -121,27 +171,29 @@ animation = &"moving"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1murt"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5sj0x"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ovg4i"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_58kc7"]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nh4ur"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bjvvg"]
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_58kc7"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ovg4i"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5sj0x"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7wli1"]
+states/BlendTree/node = SubResource("AnimationNodeBlendTree_bjvvg")
+states/BlendTree/position = Vector2(708.9999, 112.448715)
 states/attack/node = SubResource("AnimationNodeAnimation_635qg")
 states/attack/position = Vector2(556, 167.19452)
 states/idle/node = SubResource("AnimationNodeAnimation_8akj5")
 states/idle/position = Vector2(323, 88)
 states/moving/node = SubResource("AnimationNodeAnimation_bj7e2")
 states/moving/position = Vector2(556, 68)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i"), "moving", "attack", SubResource("AnimationNodeStateMachineTransition_58kc7"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_nh4ur"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_bjvvg")]
-graph_offset = Vector2(27.710556, 18.84872)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_nh4ur"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_bjvvg"), "moving", "attack", SubResource("AnimationNodeStateMachineTransition_58kc7"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x")]
+graph_offset = Vector2(129.76181, -101.78763)
 
 [node name="Player" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_635qg")
@@ -152,6 +204,7 @@ texture = ExtResource("2_nh4ur")
 vframes = 2
 
 [node name="MuzzleFlash" type="Sprite2D" parent="." unique_id=270910496]
+visible = false
 position = Vector2(-4, -44)
 rotation = 1.5707964
 texture = ExtResource("3_58kc7")
@@ -170,6 +223,7 @@ libraries/ = SubResource("AnimationLibrary_bjvvg")
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_7wli1")
 anim_player = NodePath("../AnimationPlayer")
+parameters/BlendTree/Blend2/blend_amount = 0.0
 
 [node name="Gun" parent="." unique_id=384517215 instance=ExtResource("4_nh4ur")]
 position = Vector2(4, -43)
