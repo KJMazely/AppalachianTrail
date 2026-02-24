@@ -19,10 +19,16 @@ run/main_scene="uid://baqswhdnk13gw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+<<<<<<< Updated upstream
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+=======
+[autoload]
+
+ScoreManager="*uid://cxrpl4moj6brg"
+>>>>>>> Stashed changes
 
 [input]
 

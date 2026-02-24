@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ckdkil20d7qat"]
+
+[ext_resource type="Script" uid="uid://cpex5nyor3oye" path="res://autoloads/hud.gd" id="1_1wstq"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1335328965]
+script = ExtResource("1_1wstq")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1539303974]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1421538194]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1900323942]
+unique_name_in_owner = true
+layout_mode = 2
