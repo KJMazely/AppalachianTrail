@@ -43,7 +43,8 @@ func update_animation():
 			animation_playback.travel("idle")
 		State.ATTACK:
 			animation_playback.travel("attack")
-
+			#HitBox.set_active(true) 
+			
 func _on_shoot_speed_timer_timeout() -> void:
 	canShoot = true
 

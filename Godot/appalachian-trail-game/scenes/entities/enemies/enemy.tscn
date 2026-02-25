@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_essrt"]
 [ext_resource type="Texture2D" uid="uid://3etdnx7r31ix" path="res://sprites/enemies/Cougar.png" id="2_essrt"]
+[ext_resource type="PackedScene" uid="uid://lvvmdar8gyp8" path="res://scenes/collision/hurtbox/hurtbox.tscn" id="3_c8ylr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
 size = Vector2(38, 20)
@@ -112,3 +113,12 @@ libraries/ = SubResource("AnimationLibrary_bjvvg")
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_7wli1")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="Hurtbox" parent="." unique_id=2027321770 instance=ExtResource("3_c8ylr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=102393443]
+shape = SubResource("RectangleShape2D_635qg")
+debug_color = Color(0, 0.6508249, 0.08728721, 0.41960785)
+
+[connection signal="died" from="Hurtbox" to="." method="_on_hurtbox_died"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
