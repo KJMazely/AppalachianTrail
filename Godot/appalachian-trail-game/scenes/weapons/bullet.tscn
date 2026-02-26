@@ -2,12 +2,23 @@
 
 [ext_resource type="Script" uid="uid://jq5lohfrhfsn" path="res://scenes/weapons/bullet.gd" id="1_dnt7v"]
 [ext_resource type="Texture2D" uid="uid://c7a7tc0nf8nrc" path="res://sprites/props/bullets/player_starter_bullet.png" id="2_1t05q"]
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_ymvs7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1t05q"]
+radius = 19.94
+
+[sub_resource type="Resource" id="Resource_ulmgg"]
+resource_local_to_scene = true
+script = ExtResource("2_ymvs7")
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ymvs7"]
 size = Vector2(19, 7)
 
 [node name="Bullet" type="Area2D" unique_id=1101621148]
 script = ExtResource("1_dnt7v")
+hitbox_shape = SubResource("CircleShape2D_1t05q")
+stats = SubResource("Resource_ulmgg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1713871838]
 position = Vector2(0, 1)

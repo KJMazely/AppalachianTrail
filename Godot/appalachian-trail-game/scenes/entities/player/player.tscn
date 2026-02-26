@@ -1,9 +1,16 @@
 [gd_scene format=3 uid="uid://baqswhdnk13gw"]
 
 [ext_resource type="Script" uid="uid://b2xueslysrsnw" path="res://scenes/entities/player/player.gd" id="1_635qg"]
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_8akj5"]
 [ext_resource type="Texture2D" uid="uid://c76gbcvhg7vdo" path="res://sprites/player/Playerwagon.png" id="2_nh4ur"]
 [ext_resource type="Texture2D" uid="uid://ciuwgldbvb7qj" path="res://sprites/Muzzle_Flash.png" id="3_58kc7"]
 [ext_resource type="PackedScene" uid="uid://ck17v02xg4jkk" path="res://scenes/weapons/gun.tscn" id="4_nh4ur"]
+[ext_resource type="Script" uid="uid://bvh6s4efwe2l6" path="res://scenes/hud/hud.gd" id="5_bjvvg"]
+
+[sub_resource type="Resource" id="Resource_1murt"]
+resource_local_to_scene = true
+script = ExtResource("2_8akj5")
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
 size = Vector2(108, 18)
@@ -197,6 +204,7 @@ graph_offset = Vector2(129.76181, -101.78763)
 
 [node name="Player" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_635qg")
+stats = SubResource("Resource_1murt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -27)
@@ -227,3 +235,15 @@ parameters/BlendTree/Blend2/blend_amount = 0.0
 
 [node name="Gun" parent="." unique_id=384517215 instance=ExtResource("4_nh4ur")]
 position = Vector2(4, -43)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1395910562]
+script = ExtResource("5_bjvvg")
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1028719996]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -61.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Score: 0"

@@ -7,9 +7,11 @@ enum State {
 	DEAD
 }
 
-@export_category("Stats")
+
+@export var stats:Stats
 @export var speed: int = 400
 @export var attack_speed: float = 1.0
+@export var health: int = 10
 
 var state: State = State.IDLE
 var get_direction: Vector2 = Vector2.ZERO

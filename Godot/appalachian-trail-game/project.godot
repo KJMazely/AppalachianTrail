@@ -19,6 +19,10 @@ run/main_scene="uid://baqswhdnk13gw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ScoreManager="*uid://crbb1t78myevu"
+
 [display]
 
 window/size/viewport_width=1920
@@ -56,7 +60,13 @@ mouseClick={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="enemy_hurtbox"
+2d_physics/layer_2="player_hurtbox"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
