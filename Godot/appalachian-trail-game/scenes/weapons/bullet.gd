@@ -1,5 +1,7 @@
 extends Area2D
 
+@export var hitbox_shape: Shape2D
+@export var stats: Stats
 @export var speed = 500
 @export var damage = 1
 
@@ -15,6 +17,8 @@ func set_direction(bulletDirection):
 
 func _physics_process(delta) -> void:
 	global_position += direction * speed * delta
+	var hitbox = Hitbox.new(stats, 10, hitbox_shape)
+	add_child(hitbox)
 
 
 func _on_body_entered(body: Node2D) -> void:

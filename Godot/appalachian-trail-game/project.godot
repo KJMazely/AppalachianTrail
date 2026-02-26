@@ -60,6 +60,11 @@ mouseClick={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="enemy_hurtbox"
+2d_physics/layer_2="player_hurtbox"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

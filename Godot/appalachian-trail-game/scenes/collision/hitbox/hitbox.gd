@@ -1,5 +1,5 @@
-extends Area2D
-class_name HitBox
+class_name HitBox extends Area2D
+
 
 func _ready() -> void:
 	set_active(false)

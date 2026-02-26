@@ -7,11 +7,13 @@ enum State {
 	DEAD
 }
 
-@export_category("Stats")
+@export var stats: Stats
 @export var hitpoints: int = 180
 @export var speed: float = 150.0
 @export var knockback_force: float = 300.0
 @export var flash_time: float = 0.1
+
+@export var hurtbox_shape: Shape2D
 
 var state: State = State.IDLE
 var knockback_velocity: Vector2 = Vector2.ZERO

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b4yxph05smc3i" path="res://sprites/maps/TileMapMountain.png" id="1_jq0jg"]
 [ext_resource type="PackedScene" uid="uid://cp47ufubbddw" path="res://scenes/entities/enemies/enemy.tscn" id="2_fovo8"]
 [ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="2_qrl30"]
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="3_0gplc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qrl30"]
 texture = ExtResource("1_jq0jg")
@@ -20,6 +21,16 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_qrl30")
 
+[sub_resource type="Resource" id="Resource_0gplc"]
+resource_local_to_scene = true
+script = ExtResource("3_0gplc")
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[sub_resource type="Resource" id="Resource_wtlll"]
+script = ExtResource("3_0gplc")
+faction = 1
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
 [node name="RockyMap" type="Node2D" unique_id=393858254]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1457752816]
@@ -28,5 +39,7 @@ tile_set = SubResource("TileSet_f208s")
 
 [node name="Player" parent="." unique_id=1450167641 instance=ExtResource("2_qrl30")]
 position = Vector2(93.076355, 87.850266)
+stats = SubResource("Resource_0gplc")
 
 [node name="Enemy" parent="." unique_id=1734132446 instance=ExtResource("2_fovo8")]
+stats = SubResource("Resource_wtlll")
