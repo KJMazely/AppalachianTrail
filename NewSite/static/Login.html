@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Appalachian Trail Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #8b5a2b; /* rustic brown */
+            font-family: "Trebuchet MS", sans-serif;
+        }
+
+        .login-container {
+            width: 350px;
+            padding: 30px;
+            background-color: #c19a6b;
+
+            /* 3D rustic border */
+            border-top: 5px solid #f5deb3;
+            border-left: 5px solid #e0c097;
+            border-bottom: 5px solid #5c4033;
+            border-right: 5px solid #3e2723;
+
+            box-shadow: 8px 8px 18px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #3e2723;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            text-align: left;
+            color: #4e342e;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 2px solid #6d4c41;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #fff8e1;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #5d4037;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #6d4c41;
+            color: #fff8e1;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5d4037;
+        }
+
+        .footer-text {
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #4e342e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Appalachian Trail Game</h2>
+
+        <form method="POST" action="/login">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="footer-text">
+            Begin your journey on the trail.
+        </div>
+    </div>
+</body>
+</html>
