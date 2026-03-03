@@ -15,7 +15,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="AppalachianTrailGame"
+<<<<<<< HEAD
 run/main_scene="uid://cj5vgsc1pc2uh"
+=======
+run/main_scene="uid://yvkmnu84xknb"
+>>>>>>> 4a63b4cfdc43f506054f899c662b78ef0c518adb
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
