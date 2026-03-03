@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 func _ready():
+	print("HUD ready, connecting signal")
 	$ScoreLabel.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	$ScoreLabel.anchor_left = 1.0
 	$ScoreLabel.anchor_right = 1.0
