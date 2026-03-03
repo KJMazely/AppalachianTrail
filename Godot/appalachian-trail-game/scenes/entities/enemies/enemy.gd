@@ -21,11 +21,14 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 
 func _ready() -> void:
-	# 1. Essential: Duplicate the stats resource so enemies don't share health
 	if stats:
+		# Duplicate so each enemy has its own health
 		stats = stats.duplicate()
 		stats.setup_stats()
+		
+		# Connect the signal
 		stats.health_depleted.connect(_on_death)
+		print("Enemy: Stats connected for ", name)
 	
 	animation_tree.active = true
 
@@ -84,8 +87,7 @@ func update_state() -> void:
 			animation_playback.travel("idle")
 
 func _on_death() -> void:
+	print("Enemy: _on_death called for ", name)
 	state = State.DEAD
-	# You can add a death animation travel here:
-	# animation_playback.travel("death") 
-	# Or just delete the enemy:
+	ScoreManager.add_points(5)
 	queue_free()

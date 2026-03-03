@@ -16,12 +16,11 @@ func _ready() -> void:
 	var hitbox := Hitbox.new(stats, 5.0, final_shape)
 	add_child(hitbox)
 	
-	# 2. CONNECT THE SIGNAL: When hitbox hits an enemy, delete bullet
+	
 	hitbox.hit_landed.connect(_on_bullet_hit)
 	
-	# 3. WALL COLLISION: Delete bullet if it hits a wall/environment
-	# Ensure your Bullet Area2D has a CollisionMask for your world/walls layer
-	body_entered.connect(_on_body_entered)
+	#uncomment when wall collision is added
+	#body_entered.connect(_on_body_entered)
 	
 	# Self-destruct after 5 seconds if it hits nothing
 	get_tree().create_timer(5.0).timeout.connect(queue_free)

@@ -95,7 +95,9 @@ func recalculate_stats() -> void:
 func _on_health_set(new_value: int) -> void:
 	health = clampi(new_value, 0, current_max_health)
 	health_changed.emit(health, current_max_health)
+	
 	if health <= 0:
+		print("Stats: Health depleted, emitting signal!") # Debug print
 		health_depleted.emit()
 
 func _on_experience_set(new_value: int) -> void:
@@ -106,4 +108,7 @@ func _on_experience_set(new_value: int) -> void:
 		recalculate_stats()
 
 func take_damage(amount: int) -> void:
-	health -= amount
+	# Using 'self.' is CRITICAL here. 
+	# Without it, Godot won't call the _on_health_set function below.
+	self.health -= amount
+	print("Stats: Damage taken. Current health: ", health) # Debug print
