@@ -7,7 +7,6 @@ enum State {
 	DEAD
 }
 
-
 @export var stats:Stats
 @export var speed: int = 400
 @export var attack_speed: float = 1.0
@@ -84,8 +83,6 @@ func attack() -> void:
 	#make sure player isnt already attacking
 	if state == State.ATTACK:
 		return
-	#muzzle_flash.visible = true
-	
 	gun.shoot()
 	update_animation()
 	

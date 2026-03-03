@@ -5,4 +5,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_umnsp")
+base_max_health = 1
+faction = 1
+current_max_health = 1
 metadata/_custom_type_script = "uid://b27gvc74owpnb"

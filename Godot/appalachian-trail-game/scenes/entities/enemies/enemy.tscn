@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_essrt"]
 [ext_resource type="Texture2D" uid="uid://3etdnx7r31ix" path="res://sprites/enemies/Cougar.png" id="2_essrt"]
-[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_pm80n"]
+[ext_resource type="Resource" uid="uid://ddnx0ajhfq7nm" path="res://resources/enemy_stats.tres" id="2_pm80n"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_pm80n"]
 
-[sub_resource type="Resource" id="Resource_gflvi"]
-resource_local_to_scene = true
-script = ExtResource("2_pm80n")
-faction = 1
-metadata/_custom_type_script = "uid://b27gvc74owpnb"
+[sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
+radius = 29.017237
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
 size = Vector2(38, 20)
@@ -100,17 +97,22 @@ states/moving/position = Vector2(556, 68)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i")]
 graph_offset = Vector2(-36.43589, 26.362743)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
-radius = 29.017237
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_essrt")
-stats = SubResource("Resource_gflvi")
+stats = ExtResource("2_pm80n")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)
 texture = ExtResource("2_essrt")
 vframes = 2
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1613962171]
+script = ExtResource("4_pm80n")
+metadata/_custom_type_script = "uid://dajer177ve2lr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=693396269]
+position = Vector2(-1, -22)
+shape = SubResource("CircleShape2D_20lqd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=447411323]
 shape = SubResource("RectangleShape2D_635qg")
@@ -125,10 +127,4 @@ active = false
 tree_root = SubResource("AnimationNodeStateMachine_7wli1")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1613962171]
-script = ExtResource("4_pm80n")
-metadata/_custom_type_script = "uid://dajer177ve2lr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=693396269]
-position = Vector2(-1, -22)
-shape = SubResource("CircleShape2D_20lqd")
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
