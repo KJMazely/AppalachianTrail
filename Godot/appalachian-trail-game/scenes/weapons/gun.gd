@@ -13,6 +13,7 @@ var facing_direction = 1.0 # 1.0 for Right, -1.0 for Left
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var marker_2d = $Marker2D
 @onready var shoot_speed_timer = $shootSpeedTimer
+@onready var muzzle_flash = $MuzzleFlash
 
 func _ready():
 	shoot_speed_timer.wait_time = 1.0 / shootSpeed
@@ -73,9 +74,11 @@ func setup_direction(direction: Vector2):
 	if direction.x > 0:
 		facing_direction = 1.0
 		scale.x = 1
+		$MuzzleFlash.flip_v = false
 	elif direction.x < 0:
 		facing_direction = -1.0
 		scale.x = -1
+		$MuzzleFlash.flip_v = true
 
 func update_animation():
 	match state:

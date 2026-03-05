@@ -13,7 +13,6 @@ metadata/_custom_type_script = "uid://b27gvc74owpnb"
 resource_local_to_scene = true
 script = ExtResource("2_jyhfs")
 faction = 1
-current_max_health = 2
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
 [node name="Main" type="Node2D" unique_id=1821479491]
@@ -21,6 +20,6 @@ metadata/_custom_type_script = "uid://b27gvc74owpnb"
 [node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_sugp2")]
 stats = SubResource("Resource_sugp2")
 
-[node name="Enemy" parent="." unique_id=1919775499 instance=ExtResource("3_tbgi4")]
-position = Vector2(411, 0)
+[node name="Enemy" parent="." unique_id=994123937 instance=ExtResource("3_tbgi4")]
+position = Vector2(438, 6)
 stats = SubResource("Resource_jyhfs")
