@@ -40,6 +40,7 @@ Provide polished UI and visual feedback
 
 
 **Release Plan**
+-----------------------------
 Sprint	Feature Goals
 Sprint 1	Basic mechanics and sprite integration
 Sprint 2	Player movement and attacks
@@ -54,7 +55,7 @@ Sprint 10	Final polish and finishing touches
 
 
 **Coding Standards**
-
+-------------------------------
 The project follows consistent coding practices to ensure readability and maintainability.
 
 **Standards**
@@ -79,7 +80,7 @@ C# (.NET MVC)
 
 
 **Documentation Standards**
-
+--------------------------------------------
 Documentation is maintained to ensure all team members understand the system and development process.
 
 Documentation Includes
@@ -96,7 +97,7 @@ Sprint reports documenting development progress
 
 
 **Development Environment (Tech Stack)**
-
+-------------------------------------------------------
 The project uses the following technologies:
 
 Game Engine
@@ -127,7 +128,7 @@ GitHub Issues
 
 
 **Deployment Environment**
-
+-----------------------------------------------
 The application is deployed as a web-based game.
 
 Environment
@@ -146,7 +147,7 @@ Internet connection
 
 
 **Version Management**
-
+------------------------------------------------------
 Version control is handled using Git and GitHub.
 
 Version Control Practices
@@ -161,7 +162,7 @@ Descriptive commit messages
 
 
 **Test Plan**
-
+--------------------------------------
 Testing ensures the game functions correctly across gameplay systems.
 
 Test Types
@@ -195,6 +196,7 @@ Manual playtesting performed by team members.
 
 
 **Tests Performed**
+----------------------------------------------
 Test	Description
 Player Movement Test	Verify movement input works correctly
 Combat System Test	Ensure attacks damage enemies
@@ -204,16 +206,17 @@ Leaderboard Test	Ensure scores save correctly
 
 
 **Test Analysis**
-
+----------------------------------------------
 Testing revealed issues with collision detection, enemy behavior balancing, and player interaction feedback. These issues were addressed through debugging, code improvements, and gameplay adjustments. Continuous playtesting helped refine the gameplay experience and improve overall system stability.
 
 
 **Test Automation**
-
+----------------------------------------
 Due to the scope of the project and the focus on gameplay mechanics, automated testing was not implemented. Testing was conducted manually through gameplay testing and code verification.
 
-**Change Management / Bug Tracking**
 
+**Change Management / Bug Tracking**
+----------------------------------------------
 Bug tracking and issue management are handled through GitHub Issues and Trello.
 
 Bug Tracking Process
@@ -230,7 +233,7 @@ The code is reviewed and merged.
 
 
 **Definition of Ready**
-
+-------------------------------------------
 A user story is considered Ready when:
 
 The feature is clearly defined.
@@ -244,7 +247,7 @@ The team agrees it can be completed within a sprint.
 
 
 **Definition of Done**
-
+---------------------------------------------
 A feature is considered Done when:
 
 The feature is fully implemented.
@@ -260,7 +263,7 @@ The feature is integrated into the current game build.
 
 
 **Architectural Design**
-
+------------------------------------------------
 The project uses a Model-View-Controller (MVC) architecture.
 
 Model
@@ -295,6 +298,7 @@ Interactions between game objects
 
 
 **Detailed Design**
+--------------------------------------------
 Player System
 
 The player character can move using keyboard input and aim using the mouse. The system includes health management, attack mechanics, and score tracking.
@@ -330,6 +334,7 @@ Appalachia	Mothman
 **
 Database Design
 **
+------------------------------------------------------
 Database system: SQLite
 
 Users Table
@@ -348,7 +353,7 @@ Date	| Score timestamp
 
 
 **UI / UX Design**
-
+---------------------------------------------------------
 The user interface is designed to be simple, intuitive, and responsive.
 
 Main Screens
@@ -373,7 +378,7 @@ Current level
 
 
 **UX Goals**
-
+------------------------------
   Easy to learn controls
 
   Clear visual feedback
