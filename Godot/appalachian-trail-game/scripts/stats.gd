@@ -43,8 +43,9 @@ var health: int = 0: set = _on_health_set
 
 var stat_buffs: Array[StatBuff]
 
-func _init() -> void:
-	setup_stats.call_deferred()
+# Maybe uncomment this
+#func _init() -> void:
+	#setup_stats.call_deferred()
 
 func setup_stats() -> void:
 	recalculate_stats()
