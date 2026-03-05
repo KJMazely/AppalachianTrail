@@ -93,7 +93,9 @@ script = ExtResource("1_76485")
 [node name="shootSpeedTimer" type="Timer" parent="." unique_id=1861031740]
 
 [node name="MuzzleFlash" type="Sprite2D" parent="." unique_id=27945574]
+position = Vector2(9.536743e-07, 2.8421723e-14)
 rotation = 1.5707964
+scale = Vector2(2.0367377, 2.0367377)
 texture = SubResource("CompressedTexture2D_76485")
 hframes = 3
 frame = 2

@@ -10,22 +10,31 @@ enum State {
 @export var stats:Stats
 @export var speed: int = 400
 @export var attack_speed: float = 1.0
-@export var health: int = 10
+@export var knockback_force: float = 600.0
+@export var friction: float = 1500.0 # How fast the player stops sliding after being hit
 
+
+var knockback_velocity: Vector2 = Vector2.ZERO
 var state: State = State.IDLE
 var get_direction: Vector2 = Vector2.ZERO
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
-@onready var muzzle_flash: Sprite2D = $MuzzleFlash
 @onready var gun = $Gun
+@onready var sprite: Sprite2D = $Sprite2D
 const offset = 1
 
 
 
 func _ready() -> void:
-	animation_tree.set_active(true)
-	#muzzle_flash.visible = false
+	if stats:
+		stats.setup_stats()
+		
+		# Connect the signal
+		stats.health_depleted.connect(_on_death)
+		print("Player: Stats connected for ", name)
+	
+	animation_tree.active = true
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -35,8 +44,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta):
 	movement_loop()
-	#look_at(get_global_mouse_position())
-	
 	
 
 func movement_loop() -> void:
@@ -45,7 +52,10 @@ func movement_loop() -> void:
 	get_direction.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 	var motion: Vector2 = get_direction.normalized() * speed
 	set_velocity(motion)
+	velocity = motion + knockback_velocity
+	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, friction )
 	
+
 	if get_direction != Vector2.ZERO:
 		gun.setup_direction(get_direction)
 	
@@ -55,10 +65,10 @@ func movement_loop() -> void:
 	if state == State.IDLE or State.MOVING:
 		if get_direction.x < -0.01:
 			$Sprite2D.flip_h = true
-			$Gun.position.x = 4
+			$Gun.position.x = 16
 		elif get_direction.x > 0.01:
 			$Sprite2D.flip_h = false
-			$Gun.position.x = -4
+			$Gun.position.x = -16
 
 	# sprite animation
 	if motion != Vector2.ZERO and state == State.IDLE:
@@ -88,3 +98,25 @@ func attack() -> void:
 	
 	#Return to idle state after attack anim is done
 	state = State.IDLE
+
+func handle_hit(hitter_position: Vector2) -> void:
+	if state == State.DEAD:
+		return
+		
+	# Trigger the visual flash
+	flash_red()
+	
+	# Calculate knockback direction (away from the bullet/attacker)
+	var knockback_direction = (global_position - hitter_position).normalized()
+	knockback_velocity = knockback_direction * knockback_force
+
+func flash_red() -> void:
+	# Creates a quick flash effect using a Tween
+	var tween = create_tween()
+	sprite.modulate = Color.RED
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.15)
+
+func _on_death() -> void:
+	print("Plyer: _on_death called for ", name)
+	state = State.DEAD
+	queue_free()

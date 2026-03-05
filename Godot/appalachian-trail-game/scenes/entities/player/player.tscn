@@ -3,12 +3,15 @@
 [ext_resource type="Script" uid="uid://b2xueslysrsnw" path="res://scenes/entities/player/player.gd" id="1_635qg"]
 [ext_resource type="Resource" uid="uid://dy0lneeu1fy77" path="res://resources/player_stats.tres" id="2_8akj5"]
 [ext_resource type="Texture2D" uid="uid://c76gbcvhg7vdo" path="res://sprites/player/Playerwagon.png" id="2_nh4ur"]
-[ext_resource type="Texture2D" uid="uid://ciuwgldbvb7qj" path="res://sprites/Muzzle_Flash.png" id="3_58kc7"]
+[ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_8akj5"]
 [ext_resource type="PackedScene" uid="uid://ck17v02xg4jkk" path="res://scenes/weapons/gun.tscn" id="4_nh4ur"]
 [ext_resource type="Script" uid="uid://bvh6s4efwe2l6" path="res://scenes/hud/hud.gd" id="5_bjvvg"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8akj5"]
+size = Vector2(108, 39)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
-size = Vector2(108, 18)
+size = Vector2(67, 18)
 
 [sub_resource type="Animation" id="Animation_635qg"]
 length = 0.033333335
@@ -25,35 +28,11 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MuzzleFlash:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_bjvvg"]
 resource_name = "attack"
 length = 0.08242034
 step = 0.03
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MuzzleFlash:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.006116707, 0.038544536, 0.077943526),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [2, 0, 1, 2]
-}
 
 [sub_resource type="Animation" id="Animation_58kc7"]
 resource_name = "idle"
@@ -71,18 +50,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MuzzleFlash:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.01020851),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_nh4ur"]
@@ -102,36 +69,12 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MuzzleFlash:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2]
-}
 
 [sub_resource type="Animation" id="Animation_8akj5"]
 resource_name = "muzzlemoving"
 length = 0.403
 loop_mode = 1
 step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MuzzleFlash:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bjvvg"]
 _data = {
@@ -206,15 +149,20 @@ position = Vector2(0, -27)
 texture = ExtResource("2_nh4ur")
 vframes = 2
 
-[node name="MuzzleFlash" type="Sprite2D" parent="." unique_id=270910496]
-visible = false
-position = Vector2(-4, -44)
-rotation = 1.5707964
-texture = ExtResource("3_58kc7")
-hframes = 3
+[node name="Hurtbox" type="Area2D" parent="." unique_id=417122914]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_8akj5")
+metadata/_custom_type_script = "uid://dajer177ve2lr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1344058614]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-6, -29.5)
+shape = SubResource("RectangleShape2D_8akj5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=447411323]
-position = Vector2(-8, -1)
+position = Vector2(-26.5, -1)
 shape = SubResource("RectangleShape2D_635qg")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1006706540]
@@ -229,7 +177,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/BlendTree/Blend2/blend_amount = 0.0
 
 [node name="Gun" parent="." unique_id=384517215 instance=ExtResource("4_nh4ur")]
-position = Vector2(4, -43)
+position = Vector2(-15, -43)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1395910562]
 script = ExtResource("5_bjvvg")
