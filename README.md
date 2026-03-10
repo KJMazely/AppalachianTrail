@@ -264,37 +264,8 @@ The feature is integrated into the current game build.
 
 **Architectural Design**
 ------------------------------------------------
-The project uses a Model-View-Controller (MVC) architecture.
+[Architectural Design](https://github.com/KJMazely/AppalachianTrail/blob/main/PDFs/Architectual%20Design.png)
 
-Model
-
-Responsible for managing game data including:
-
-  Player statistics
-
-  Game state
-
-  Leaderboard database
-
-View
-
-Responsible for visual components:
-
-  Game rendering
-
-  User interface
-
-  Player HUD
-
-  Controller
-
-Handles:
-
-  Player input
-
-  Game logic
-
-Interactions between game objects
 
 
 **Detailed Design**
@@ -331,9 +302,7 @@ Forest	Wendigo
 Appalachia	Mothman
 
 
-**
-Database Design
-**
+**Database Design**
 ------------------------------------------------------
 Database system: SQLite
 
@@ -386,3 +355,14 @@ Current level
   Minimal UI clutter
 
   Fast restarts to encourage replayability
+  
+
+**Sprint Reports**
+------------------------------
+  [Sprint Report 1](https://github.com/KJMazely/AppalachianTrail/blob/main/PDFs/Sprint%20Report%201.pdf)
+
+  [Sprint Report 2](https://github.com/KJMazely/AppalachianTrail/blob/main/PDFs/Spirnt%202.pdf)
+
+  [Sprint Report 3](https://github.com/KJMazely/AppalachianTrail/blob/main/PDFs/Sprint%20Report%203.pdf)
+
+  [Sprint Report 4](https://github.com/KJMazely/AppalachianTrail/blob/main/PDFs/Sprint%20Report%204.pdf)
