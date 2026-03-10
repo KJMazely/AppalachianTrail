@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cj5vgsc1pc2uh"]
+
+[ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cp47ufubbddw" path="res://scenes/entities/enemies/enemy.tscn" id="3_tbgi4"]
+[ext_resource type="Script" uid="uid://8k66avjuc4fx" path="res://scripts/enemy_spawner.gd" id="4_jyhfs"]
+
+[sub_resource type="Resource" id="Resource_tbgi4"]
+resource_local_to_scene = true
+script = ExtResource("2_jyhfs")
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[sub_resource type="Resource" id="Resource_tefeu"]
+resource_local_to_scene = true
+script = ExtResource("2_jyhfs")
+faction = 1
+current_max_health = 2
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[node name="Main" type="Node2D" unique_id=1821479491]
+
+[node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_sugp2")]
+stats = SubResource("Resource_tbgi4")
+
+[node name="Enemy" parent="." unique_id=1919775499 instance=ExtResource("3_tbgi4")]
+position = Vector2(411, 0)
+stats = SubResource("Resource_tefeu")
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=1474090355 node_paths=PackedStringArray("player")]
+script = ExtResource("4_jyhfs")
+enemy_scene = ExtResource("3_tbgi4")
+player = NodePath("../Player")
+enemies_to_spawn = 5
+spawn_radius = 500.0
