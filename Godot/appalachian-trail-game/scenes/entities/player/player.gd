@@ -120,3 +120,4 @@ func _on_death() -> void:
 	print("Plyer: _on_death called for ", name)
 	state = State.DEAD
 	queue_free()
+	ScoreManager.end_game()
