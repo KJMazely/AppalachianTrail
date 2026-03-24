@@ -8,7 +8,10 @@ var failures: Array[String] = []
 
 
 func _initialize() -> void:
-	run_tests()
+	call_deferred("run_and_exit")
+
+func run_and_exit() -> void:
+	await run_tests()
 
 	if failures.is_empty():
 		print("All headless regression tests passed.")
@@ -25,8 +28,8 @@ func run_tests() -> void:
 	test_stats_setup_sets_health_to_max()
 	test_leveling_recalculates_stats()
 	test_additive_and_multiplicative_buffs_stack()
-	test_score_manager_emits_updates()
-	test_score_manager_end_game_creates_overlay()
+	await test_score_manager_emits_updates()
+	await test_score_manager_end_game_creates_overlay()
 
 
 func assert_true(condition: bool, message: String) -> void:
@@ -73,13 +76,14 @@ func test_additive_and_multiplicative_buffs_stack() -> void:
 	stats.add_buff(mult_buff)
 	stats.recalculate_stats()
 
-	assert_true(stats.current_attack > stats.base_attack, "Buffed attack should exceed the base attack.")
+	assert_true(stats.current_attack > starting_attack, "Buffed attack should exceed the unbuffed attack.")
 	assert_equal(stats.current_attack, int(starting_attack * 1.5 + 5.0), "Attack buffs should apply both additive and multiplicative changes.")
 
 
 func test_score_manager_emits_updates() -> void:
 	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
 	get_root().add_child(score_manager)
+	await process_frame
 
 	var received_scores: Array[int] = []
 	score_manager.ScoreChanged.connect(func(new_score: int) -> void:
@@ -99,6 +103,7 @@ func test_score_manager_emits_updates() -> void:
 func test_score_manager_end_game_creates_overlay() -> void:
 	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
 	get_root().add_child(score_manager)
+	await process_frame
 	score_manager.add_points(9)
 	score_manager.end_game()
 

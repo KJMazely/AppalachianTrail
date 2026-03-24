@@ -23,15 +23,26 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Cache Godot editor archive
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/godot-download/Godot_v4.6-stable_linux.x86_64.zip
+          key: godot-4.6-stable-linux-x86_64
+
       - name: Install unzip dependency
         run: sudo apt-get update && sudo apt-get install --yes unzip
 
       - name: Download Godot editor
         run: |
           set -euo pipefail
-          curl --fail --location --show-error --output godot.zip "$GODOT_DOWNLOAD_URL"
-          unzip -Z -1 godot.zip | head -n 5
-          unzip -q godot.zip -d "$RUNNER_TEMP/godot"
+          mkdir -p "$RUNNER_TEMP/godot-download" "$RUNNER_TEMP/godot"
+          ARCHIVE_PATH="$RUNNER_TEMP/godot-download/Godot_v4.6-stable_linux.x86_64.zip"
+          if [[ ! -f "$ARCHIVE_PATH" ]]; then
+            curl --fail --location --show-error --output "$ARCHIVE_PATH" "$GODOT_DOWNLOAD_URL"
+          fi
+          unzip -Z -1 "$ARCHIVE_PATH" | head -n 5
+          unzip -qo "$ARCHIVE_PATH" -d "$RUNNER_TEMP/godot"
           GODOT_BIN="$(find "$RUNNER_TEMP/godot" -type f -name 'Godot_v*-stable_linux.x86_64' | head -n 1)"
           test -n "$GODOT_BIN"
           chmod +x "$GODOT_BIN"
