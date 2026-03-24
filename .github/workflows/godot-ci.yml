@@ -21,11 +21,11 @@ jobs:
       GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.6-stable/Godot_v4.6-stable_linux.x86_64.zip
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache Godot editor archive
         id: cache-godot
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ runner.temp }}/godot-download/Godot_v4.6-stable_linux.x86_64.zip
           key: godot-4.6-stable-linux-x86_64
@@ -58,7 +58,7 @@ jobs:
 
       - name: Upload Godot test log on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: godot-ci-log
           path: Godot/appalachian-trail-game/ci-test.log
