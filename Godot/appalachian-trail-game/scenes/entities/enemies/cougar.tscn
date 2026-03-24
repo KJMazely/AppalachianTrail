@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_essrt"]
 [ext_resource type="Texture2D" uid="uid://3etdnx7r31ix" path="res://sprites/enemies/Cougar.png" id="2_essrt"]
-[ext_resource type="Resource" uid="uid://ddnx0ajhfq7nm" path="res://resources/enemy_stats.tres" id="2_pm80n"]
+[ext_resource type="Resource" uid="uid://bwagopsvxcmk7" path="res://resources/cougar_stats.tres" id="2_ynwkg"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_pm80n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
@@ -187,9 +187,9 @@ states/moving/position = Vector2(556, 68)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i"), "moving", "dead", SubResource("AnimationNodeStateMachineTransition_gflvi"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_20lqd"), "dead", "End", SubResource("AnimationNodeStateMachineTransition_j3iiu")]
 graph_offset = Vector2(38.34012, 23.484243)
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1734132446]
+[node name="Cougar" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_essrt")
-stats = ExtResource("2_pm80n")
+stats = ExtResource("2_ynwkg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)
