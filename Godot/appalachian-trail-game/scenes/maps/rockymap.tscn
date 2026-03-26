@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="2_qrl30"]
 [ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="3_0gplc"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qrl30"]
 texture = ExtResource("1_jq0jg")
 texture_region_size = Vector2i(32, 32)
@@ -22,7 +21,7 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_qrl30")
 
-[sub_resource type="Resource" id="Resource_0gplc"]
+[sub_resource type="Resource" id="Resource_p1oj6"]
 resource_local_to_scene = true
 script = ExtResource("3_0gplc")
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
@@ -40,7 +39,7 @@ tile_set = SubResource("TileSet_f208s")
 
 [node name="Player" parent="." unique_id=1450167641 instance=ExtResource("2_qrl30")]
 position = Vector2(93.076355, 87.850266)
-stats = SubResource("Resource_0gplc")
+stats = SubResource("Resource_p1oj6")
 
 [node name="Enemy" parent="." unique_id=1734132446 instance=ExtResource("2_fovo8")]
 stats = SubResource("Resource_wtlll")

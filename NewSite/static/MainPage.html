@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Appalachian Trail Game</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #8b5a2b; /* rustic base */
+            background-color: #8b5a2b;
+            /* rustic base */
             font-family: "Trebuchet MS", sans-serif;
         }
 
@@ -21,16 +23,19 @@
 
         /* Shared 3D rustic container style */
         .panel {
-            background-color: #c19a6b; /* warm wood */
+            background-color: #c19a6b;
+            /* warm wood */
             padding: 15px;
             box-sizing: border-box;
 
-            border-top: 5px solid #f5deb3;      /* highlight */
+            border-top: 5px solid #f5deb3;
+            /* highlight */
             border-left: 5px solid #e0c097;
-            border-bottom: 5px solid #5c4033;   /* shadow */
+            border-bottom: 5px solid #5c4033;
+            /* shadow */
             border-right: 5px solid #3e2723;
 
-            box-shadow: 6px 6px 12px rgba(0,0,0,0.4);
+            box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
         }
 
         #LeftDiv {
@@ -49,7 +54,9 @@
             width: 25%;
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             color: #3e2723;
             margin-top: 0;
         }
@@ -83,7 +90,6 @@
             padding: 10px;
             border-radius: 5px;
         }
-
     </style>
 </head>
 
@@ -109,7 +115,7 @@
 
         <!-- GAME PANEL -->
         <div id="GameDiv" class="panel">
-            <iframe src="/static/GameFiles/apptrail.html"></iframe>
+
         </div>
 
         <!-- RIGHT PANEL -->
@@ -119,39 +125,59 @@
             <p id="current-user-standing"></p>
             <hr>
             <span id="leaderboard-entries">
-                
+
             </span>
         </div>
 
     </div>
 </body>
+
 </html>
 <script>
-    const currentUser = await fetch('/api/me').then(res => res.json());
+    let currentUser = null;
 
-    function sendDataToGodot(data) {
-        if (window.godot_callback) {
-            window.godot_callback(data); 
-        } else {
-            console.warn("Godot callback not yet available or not in a web export.");
-        }
+    async function loadCurrentUser() {
+        const res = await fetch('/api/me/');
+        currentUser = await res.json();
+        console.log("Loaded user:", currentUser);
     }
 
-    window.addEventListener('load', (event) => {
-        sendDataToGodot(currentUser.username);
-    });
+    async function createIframe() {
+        if (!currentUser) {
+            console.error("User not loaded yet");
+            return;
+        }
+
+        const container = document.getElementById('GameDiv');
+        const iframe = document.createElement('iframe');
+
+        iframe.src = `/static/GameFiles/apptrail.html?username=${currentUser.username}&level=5&userId=${currentUser.id}&name=${currentUser.username}`;
+
+        container.appendChild(iframe);
+    }
 
     async function populateLeaderboard() {
+        if (!currentUser) {
+            console.error("User not loaded yet");
+            return;
+        }
+
         const response = await fetch('/api/users');
         const users = await response.json();
-        // Sort users by score in descending order
+
+        // Sort users by score (descending)
         users.sort((a, b) => b.score - a.score);
 
         const currentUserStanding = document.getElementById('current-user-standing');
-        const currentUserData = users.find(user => user.username === currentUser.username);
+
+        const currentUserData = users.find(
+            user => user.username === currentUser.username
+        );
+
         if (currentUserData) {
             const rank = users.indexOf(currentUserData) + 1;
-            currentUserStanding.textContent = `${rank}. ${currentUserData.username} - Score: ${currentUserData.score}`;
+            currentUserStanding.textContent =
+                `${rank}. ${currentUserData.username} - Score: ${currentUserData.score}`;
         } else {
             currentUserStanding.textContent = 'Your Standing: Not ranked yet';
         }
@@ -165,6 +191,13 @@
             leaderboardEntries.appendChild(entry);
         });
     }
-    populateLeaderboard();
 
+    async function init() {
+        await loadCurrentUser();  
+        await createIframe();     
+        await populateLeaderboard();
+    }
+
+    // Run everything in correct order
+    window.addEventListener('load', init);
 </script>
