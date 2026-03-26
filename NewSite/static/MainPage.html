@@ -94,7 +94,7 @@
         <div id="LeftDiv" class="panel">
             <h2>Appalachian Trail Game</h2>
 
-            <button onclick="window.location.href='/';">Logout</button>
+            <button onclick="window.location.href='/logout';">Logout</button>
 
             <div class="tutorial-box">
                 <h3>Quick Tutorial</h3>
@@ -115,12 +115,56 @@
         <!-- RIGHT PANEL -->
         <div id="RightDiv" class="panel">
             <h2>LeaderBoard</h2>
-            <p>🏔 Top Hikers:</p>
-            <p>1. TrailMaster92</p>
-            <p>2. SmokyMtnKing</p>
-            <p>3. RidgeRunner</p>
+            <hr>
+            <p id="current-user-standing"></p>
+            <hr>
+            <span id="leaderboard-entries">
+                
+            </span>
         </div>
 
     </div>
 </body>
 </html>
+<script>
+    const currentUser = await fetch('/api/me').then(res => res.json());
+
+    function sendDataToGodot(data) {
+        if (window.godot_callback) {
+            window.godot_callback(data); 
+        } else {
+            console.warn("Godot callback not yet available or not in a web export.");
+        }
+    }
+
+    window.addEventListener('load', (event) => {
+        sendDataToGodot(currentUser.username);
+    });
+
+    async function populateLeaderboard() {
+        const response = await fetch('/api/users');
+        const users = await response.json();
+        // Sort users by score in descending order
+        users.sort((a, b) => b.score - a.score);
+
+        const currentUserStanding = document.getElementById('current-user-standing');
+        const currentUserData = users.find(user => user.username === currentUser.username);
+        if (currentUserData) {
+            const rank = users.indexOf(currentUserData) + 1;
+            currentUserStanding.textContent = `${rank}. ${currentUserData.username} - Score: ${currentUserData.score}`;
+        } else {
+            currentUserStanding.textContent = 'Your Standing: Not ranked yet';
+        }
+
+        const leaderboardEntries = document.getElementById('leaderboard-entries');
+        leaderboardEntries.innerHTML = '';
+
+        users.forEach((user, index) => {
+            const entry = document.createElement('p');
+            entry.textContent = `${index + 1}. ${user.username} - Score: ${user.score}`;
+            leaderboardEntries.appendChild(entry);
+        });
+    }
+    populateLeaderboard();
+
+</script>

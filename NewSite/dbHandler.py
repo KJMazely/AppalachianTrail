@@ -12,7 +12,10 @@ def create_user(username, password, score):
 # READ ALL: Get everything in the table
 def read_all_users():
     with Session() as session:
-        return session.query(User).all()
+        users = session.query(User).all()
+        for user in users:
+            user.password = None  # Hide passwords before returning
+        return users
 
 # READ: Get one user by ID
 def read_user_by_id(user_id):
@@ -43,6 +46,6 @@ def check_user_password(username, password):
     with Session() as session:
         user = session.query(User).filter_by(username=username).first()
         if user and user.password == password:
-            return True
+            return user.id
         return False
 
