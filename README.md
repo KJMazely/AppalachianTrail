@@ -212,7 +212,21 @@ Testing revealed issues with collision detection, enemy behavior balancing, and 
 
 **Test Automation**
 ----------------------------------------
-Due to the scope of the project and the focus on gameplay mechanics, automated testing was not implemented. Testing was conducted manually through gameplay testing and code verification.
+Automated test coverage is now included for core Godot gameplay systems. A headless regression runner validates stat setup, leveling, buff application, and score manager behavior without opening the editor.
+
+Continuous integration is configured with GitHub Actions to:
+
+Import the Godot project in headless mode
+
+Run the regression test runner on pushes and pull requests
+
+Upload the Godot test log if a workflow run fails
+
+Tests can also be run locally with a Godot 4.6 editor build:
+
+`godot --headless --path Godot/appalachian-trail-game --import`
+
+`godot --headless --path Godot/appalachian-trail-game --script res://tests/test_runner.gd`
 
 
 **Change Management / Bug Tracking**

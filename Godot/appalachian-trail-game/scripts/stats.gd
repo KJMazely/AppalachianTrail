@@ -90,7 +90,7 @@ func recalculate_stats() -> void:
 		
 	for stat_name in stat_addends:
 		var cur_property_name: String = str("current_" + stat_name)
-		set(cur_property_name, get(cur_property_name) + stat_multipliers[stat_name])
+		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
 
 
 func _on_health_set(new_value: int) -> void:

@@ -1,0 +1,63 @@
+name: Godot CI
+
+on:
+  push:
+    branches:
+      - GameDev
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  headless-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: Godot/appalachian-trail-game
+    env:
+      GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.6-stable/Godot_v4.6-stable_linux.x86_64.zip
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Cache Godot editor archive
+        id: cache-godot
+        uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/godot-download/Godot_v4.6-stable_linux.x86_64.zip
+          key: godot-4.6-stable-linux-x86_64
+
+      - name: Install unzip dependency
+        run: sudo apt-get update && sudo apt-get install --yes unzip
+
+      - name: Download Godot editor
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/godot-download" "$RUNNER_TEMP/godot"
+          ARCHIVE_PATH="$RUNNER_TEMP/godot-download/Godot_v4.6-stable_linux.x86_64.zip"
+          if [[ ! -f "$ARCHIVE_PATH" ]]; then
+            curl --fail --location --show-error --output "$ARCHIVE_PATH" "$GODOT_DOWNLOAD_URL"
+          fi
+          unzip -Z -1 "$ARCHIVE_PATH" | head -n 5
+          unzip -qo "$ARCHIVE_PATH" -d "$RUNNER_TEMP/godot"
+          GODOT_BIN="$(find "$RUNNER_TEMP/godot" -type f -name 'Godot_v*-stable_linux.x86_64' | head -n 1)"
+          test -n "$GODOT_BIN"
+          chmod +x "$GODOT_BIN"
+          echo "GODOT_BIN=$GODOT_BIN" >> "$GITHUB_ENV"
+
+      - name: Import project assets
+        run: |
+          "$GODOT_BIN" --headless --path . --import
+
+      - name: Run headless regression tests
+        run: |
+          "$GODOT_BIN" --headless --path . --script res://tests/test_runner.gd --log-file ci-test.log
+
+      - name: Upload Godot test log on failure
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: godot-ci-log
+          path: Godot/appalachian-trail-game/ci-test.log
