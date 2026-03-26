@@ -7,6 +7,11 @@ func _ready():
 	$ScoreLabel.offset_left = 0
 	$ScoreLabel.offset_right = -10
 	ScoreManager.ScoreChanged.connect(_on_score_changed)
+	ScoreManager.HealthChanged.connect(_on_health_changed)
 
 func _on_score_changed(new_score: int):
 	$ScoreLabel.text = "Score: " + str(new_score)
+	
+
+func _on_health_changed(new_health: int):
+	$HealthLabel.text = "Health: " + str(new_health)

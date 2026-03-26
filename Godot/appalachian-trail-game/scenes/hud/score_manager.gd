@@ -3,7 +3,10 @@ extends Node
 var score := 0
 signal ScoreChanged(new_score)
 
-# We need to keep track of the UI so we can remove it later
+var current_health := 0
+#var max_health := 0
+signal HealthChanged(new_health, new_max_health)
+
 var end_screen_node: CanvasLayer = null
 
 func _ready():
@@ -13,6 +16,12 @@ func _ready():
 func add_points(amount: int):
 	score += amount
 	ScoreChanged.emit(score)
+
+
+func set_health(new_health: int, new_max: int):
+	current_health = new_health
+	#max_health = new_max
+	HealthChanged.emit(current_health)
 
 func end_game():
 	# Prevents creating multiple end screens if called twice
