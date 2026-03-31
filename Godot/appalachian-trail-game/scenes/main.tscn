@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_jyhfs"]
-[ext_resource type="Script" path="res://scripts/main.gd" id="3_main"]
-[ext_resource type="Script" path="res://scripts/wave_controller.gd" id="4_wave_controller"]
+[ext_resource type="Script" uid="uid://clxxgoo5mord5" path="res://scripts/main.gd" id="3_main"]
+[ext_resource type="Script" uid="uid://c0h70l1fi1vr8" path="res://scripts/wave_controller.gd" id="4_wave_controller"]
 
-[sub_resource type="Resource" id="Resource_tbgi4"]
+[sub_resource type="Resource" id="Resource_jyhfs"]
 resource_local_to_scene = true
 script = ExtResource("2_jyhfs")
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
@@ -14,10 +14,9 @@ metadata/_custom_type_script = "uid://b27gvc74owpnb"
 script = ExtResource("3_main")
 
 [node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_sugp2")]
-stats = SubResource("Resource_tbgi4")
+stats = SubResource("Resource_jyhfs")
 
 [node name="WaveController" type="Node2D" parent="." unique_id=1474090355 node_paths=PackedStringArray("player")]
 script = ExtResource("4_wave_controller")
-inter_wave_delay = 1.5
 player = NodePath("../Player")
 spawn_radius = 500.0

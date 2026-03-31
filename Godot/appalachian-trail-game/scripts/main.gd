@@ -58,7 +58,7 @@ func _build_main_waves() -> Array[Dictionary]:
 func _get_human_scene() -> PackedScene:
 	# Replace `return null` with:
 	# return preload("res://path/to/your/human_enemy.tscn")
-	return null
+	return preload("res://scenes/entities/enemies/hippie.tscn")
 
 func _get_boss_scene() -> PackedScene:
 	# Replace `return null` with:
