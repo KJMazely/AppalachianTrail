@@ -53,7 +53,7 @@ jobs:
 
       - name: Run headless regression tests
         run: |
-          "$GODOT_BIN" --headless --path . --script res://tests/test_runner.gd --log-file ci-test.log
+          "$GODOT_BIN" --headless --path . --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
 
       - name: Upload Godot test log on failure
         if: failure()

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bxvt1eqbcgiuy"]
+
+[ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="1_0jfhv"]
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_dlq7p"]
+[ext_resource type="PackedScene" uid="uid://lotn7rg4verc" path="res://scenes/entities/enemies/hippie.tscn" id="3_3nlp5"]
+
+[sub_resource type="Resource" id="Resource_0jfhv"]
+resource_local_to_scene = true
+script = ExtResource("2_dlq7p")
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[sub_resource type="Resource" id="Resource_dlq7p"]
+resource_local_to_scene = true
+resource_name = "hippie_stats"
+script = ExtResource("2_dlq7p")
+faction = 1
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[node name="Test" type="Node2D" unique_id=1910527724]
+
+[node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_0jfhv")]
+stats = SubResource("Resource_0jfhv")
+
+[node name="Hippie" parent="." unique_id=537859828 instance=ExtResource("3_3nlp5")]
+position = Vector2(402, 71)
+stats = SubResource("Resource_dlq7p")
+can_shoot = false
