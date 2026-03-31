@@ -7,18 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://cu3cp02l4vhqm" path="res://scenes/entities/enemies/ram.tscn" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://bnli84mccbf3a" path="res://scenes/maps/web_test.gd" id="6_tefeu"]
 
-[sub_resource type="Resource" id="Resource_o6xl0"]
+[sub_resource type="Resource" id="Resource_tefeu"]
 resource_local_to_scene = true
 script = ExtResource("2_jyhfs")
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
-[sub_resource type="Resource" id="Resource_tipki"]
+[sub_resource type="Resource" id="Resource_o6xl0"]
 resource_local_to_scene = true
 script = ExtResource("2_jyhfs")
 faction = 1
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
-[sub_resource type="Resource" id="Resource_85g3d"]
+[sub_resource type="Resource" id="Resource_tipki"]
 resource_local_to_scene = true
 resource_name = "cougar_stats"
 script = ExtResource("2_jyhfs")
@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://b27gvc74owpnb"
 [node name="Main" type="Node2D" unique_id=1821479491]
 
 [node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_sugp2")]
-stats = SubResource("Resource_o6xl0")
+stats = SubResource("Resource_tefeu")
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1474090355 node_paths=PackedStringArray("player")]
 script = ExtResource("4_jyhfs")
@@ -39,11 +39,11 @@ spawn_radius = 500.0
 
 [node name="Ram" parent="." unique_id=719411333 instance=ExtResource("5_tbgi4")]
 position = Vector2(331, 160)
-stats = SubResource("Resource_tipki")
+stats = SubResource("Resource_o6xl0")
 
 [node name="Cougar" parent="." unique_id=1114695110 instance=ExtResource("3_tbgi4")]
 position = Vector2(443, -36)
-stats = SubResource("Resource_85g3d")
+stats = SubResource("Resource_tipki")
 
 [node name="WebTest" type="Node" parent="." unique_id=1458942735]
 script = ExtResource("6_tefeu")

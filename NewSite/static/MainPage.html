@@ -151,7 +151,7 @@
         const container = document.getElementById('GameDiv');
         const iframe = document.createElement('iframe');
 
-        iframe.src = `/static/GameFiles/apptrail.html?username=${currentUser.username}&level=5&userId=${currentUser.id}&name=${currentUser.username}`;
+        iframe.src = `/static/GameFiles/apptrail.html?username=${currentUser.username}&highscore=${currentUser.score}&userId=${currentUser.id}&name=${currentUser.username}&cookie=${document.cookie}`;
 
         container.appendChild(iframe);
     }

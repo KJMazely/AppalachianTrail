@@ -56,10 +56,10 @@ def get_current_user():
     else:
         return jsonify({'error': 'User not found'}), 404
 
-@app.route('/api/update_score', methods=['POST'])
-@jwt_required()
+@app.route('/api/update', methods=['PUT'])
 def update_score():
-    current_user_id = get_jwt_identity()
+    current_user_id = request.json.get('id')
+    print(f"Current user ID: {current_user_id}")  # Debugging line
     new_score = request.json.get('score')
     if update_user_score(current_user_id, new_score):
         return jsonify({'message': 'Score updated successfully'})
