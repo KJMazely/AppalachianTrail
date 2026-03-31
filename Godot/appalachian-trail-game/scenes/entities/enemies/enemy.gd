@@ -27,11 +27,11 @@ enum State {
 var state: State = State.IDLE
 var knockback_velocity: Vector2 = Vector2.ZERO
 var can_attack: bool = true
-<<<<<<< HEAD
+
 @onready var deathsprite = preload("res://scenes/entities/enemies/Death.tscn")
-=======
+
 var ready_to_shoot: bool = true
->>>>>>> f036adcf219c0c425be089345b0de7ac212ada3f
+
 
 @onready var player = $"../Player"
 @onready var sprite: Sprite2D = $Sprite2D
