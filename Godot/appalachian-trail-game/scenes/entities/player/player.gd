@@ -30,8 +30,15 @@ func _ready() -> void:
 	if stats:
 		stats.setup_stats()
 		
-		# Connect the signal
+		# Connect the death signal
 		stats.health_depleted.connect(_on_death)
+		
+		# Connect health changes to the ScoreManager
+		stats.health_changed.connect(ScoreManager.set_health)
+		
+		# Initialize the health immediately on load
+		ScoreManager.set_health(stats.health, stats.current_max_health)
+		
 		print("Player: Stats connected for ", name)
 	
 	animation_tree.active = true
