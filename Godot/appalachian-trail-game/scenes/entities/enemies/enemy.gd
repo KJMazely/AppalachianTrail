@@ -21,6 +21,7 @@ enum State {
 var state: State = State.IDLE
 var knockback_velocity: Vector2 = Vector2.ZERO
 var can_attack: bool = true
+@onready var deathsprite = preload("res://scenes/entities/enemies/Death.tscn")
 
 @onready var player = $"../Player"
 @onready var sprite: Sprite2D = $Sprite2D
@@ -135,7 +136,13 @@ func update_state() -> void:
 			state = State.IDLE
 			animation_playback.travel("idle")
 
+
 func _on_death() -> void:
 	state = State.DEAD
 	ScoreManager.add_points(5)
-	queue_free()
+
+	var deathsprite = deathsprite.instantiate()
+	deathsprite.global_position = global_position
+	get_parent().add_child(deathsprite)
+
+	queue_free() # optional, remove enemy
