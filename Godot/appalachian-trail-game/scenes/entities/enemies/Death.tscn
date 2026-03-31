@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c425k0r17rm15"]
+[gd_scene format=3 uid="uid://bj1wpkgmpujh0"]
 
-[ext_resource type="Script" uid="uid://dxhryhv0ml73e" path="res://scenes/entities/enemies/death.gd" id="1_5y662"]
+[ext_resource type="Script" path="res://scenes/entities/enemies/death.gd" id="1_5y662"]
 [ext_resource type="Texture2D" uid="uid://cm5pqa6agdmx1" path="res://sprites/Death Anim.png" id="1_y17uo"]
 
 [sub_resource type="Animation" id="Animation_5y662"]
@@ -25,10 +25,10 @@ tracks/1/path = NodePath("Sprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": []
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_bf64b"]
@@ -44,6 +44,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qi14q"]
