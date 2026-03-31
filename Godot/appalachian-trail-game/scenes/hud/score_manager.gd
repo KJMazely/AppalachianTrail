@@ -54,6 +54,8 @@ func end_game():
 	tween.tween_property(bg, "color", Color(0, 0, 0, 0.9), 1.0)
 	tween.tween_property(label, "modulate:a", 1.0, 1.0)
 	
+	
+	
 	# 5. Pause the game
 	get_tree().paused = true
 

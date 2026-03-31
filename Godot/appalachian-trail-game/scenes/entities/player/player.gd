@@ -124,6 +124,7 @@ func flash_red() -> void:
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.15)
 
 func _on_death() -> void:
+	WebHandler.HandleScoreUpdate(ScoreManager.score)
 	print("Plyer: _on_death called for ", name)
 	state = State.DEAD
 	queue_free()

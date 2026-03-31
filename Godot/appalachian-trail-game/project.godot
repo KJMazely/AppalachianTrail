@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ScoreManager="*uid://crbb1t78myevu"
+WebHandler="*uid://bnli84mccbf3a"
 
 [display]
 

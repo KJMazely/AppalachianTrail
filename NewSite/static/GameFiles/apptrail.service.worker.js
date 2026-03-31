@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1774979272|3433176079';
+const CACHE_VERSION = '1774982296|1758264938';
 /** @type {string} */
 const CACHE_PREFIX = 'AppalachianTrail-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;

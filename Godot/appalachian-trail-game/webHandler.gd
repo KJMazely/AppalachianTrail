@@ -10,7 +10,7 @@ func _ready():
 	if OS.has_feature("web"):
 		user_name = get_url_param("name")
 		user_id = get_url_param("userId")
-		old_highscore = get_url_param("highscore")
+		old_highscore = get_url_param("highscore").to_int()
 		request_cookie = get_url_param("cookie")
 		
 		print("name: ", user_name) 
@@ -29,8 +29,12 @@ func get_url_param(param_name: String) -> String:
 	# JavaScriptBridge.eval returns null if the parameter isn't found
 	return str(result) if result != null else ""
 
-#func updateHighScore(playerId, Score):
-#	pass
+func HandleScoreUpdate(NewScore : int):
+	if (old_highscore < NewScore):
+		send_put_request(user_id.to_int(), NewScore)
+		print("Score Updated to: ", NewScore)
+	else:
+		print("no new high score")
 	
 func send_put_request(playerId: int, newScore: int):
 	var http_request = HTTPRequest.new()
