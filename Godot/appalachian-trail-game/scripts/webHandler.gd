@@ -7,6 +7,7 @@ var user_name
 var request_cookie
 
 func _ready():
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	if OS.has_feature("web"):
 		user_name = get_url_param("name")
 		user_id = get_url_param("userId")
@@ -31,7 +32,7 @@ func get_url_param(param_name: String) -> String:
 
 func HandleScoreUpdate(NewScore : int):
 	if (old_highscore < NewScore):
-		send_put_request(user_id.to_int(), NewScore)
+		await send_put_request(user_id.to_int(), NewScore)
 		print("Score Updated to: ", NewScore)
 	else:
 		print("no new high score")
