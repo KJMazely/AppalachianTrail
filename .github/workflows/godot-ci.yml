@@ -58,14 +58,26 @@ jobs:
           key: godot-imported-${{ hashFiles('Godot/appalachian-trail-game/project.godot', 'Godot/appalachian-trail-game/**/*.gd', 'Godot/appalachian-trail-game/**/*.tscn', 'Godot/appalachian-trail-game/**/*.tres', 'Godot/appalachian-trail-game/**/*.res') }}
 
       - name: Import project assets
-        run: godot --headless --import --quit
+        run: |
+          godot --headless --import --quit 2>&1 | tee import.log
+          
+          # Fail the job immediately if Godot reported any real errors during import
+          # (this catches the parse error in bullet.gd and any UID / missing file issues)
+          if grep -E '^(ERROR:|SCRIPT ERROR:|Parse Error:)' import.log > /dev/null; then
+            echo "::error::Godot import failed with errors (see import.log below)"
+            exit 1
+          fi
+          echo "Project imported successfully (no errors)."
 
       - name: Run headless regression tests
-        run: godot --headless --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
+        run: |
+          godot --headless --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
 
-      - name: Upload Godot test log on failure
+      - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v6
         with:
-          name: godot-ci-log
-          path: Godot/appalachian-trail-game/ci-test.log
+          name: godot-ci-logs
+          path: |
+            Godot/appalachian-trail-game/import.log
+            Godot/appalachian-trail-game/ci-test.log
