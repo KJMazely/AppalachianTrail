@@ -28,10 +28,28 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v5
 
-      - name: Setup Godot
-        uses: chickensoft-games/setup-godot@v2
+      - name: Cache Godot editor
+        id: cache-godot
+        uses: actions/cache@v5
         with:
-          version: ${{ env.GODOT_VERSION }}
+          path: ${{ runner.temp }}/godot
+          key: godot-${{ env.GODOT_VERSION }}-linux-x86_64
+
+      - name: Download and setup Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p "${{ runner.temp }}/godot"
+          curl -L --fail --show-error -o "${{ runner.temp }}/godot/godot.zip" \
+            "https://github.com/godotengine/godot-builds/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_linux.x86_64.zip"
+          
+          unzip -qo "${{ runner.temp }}/godot/godot.zip" -d "${{ runner.temp }}/godot"
+          rm "${{ runner.temp }}/godot/godot.zip"
+          
+          mv "${{ runner.temp }}/godot/Godot_v${{ env.GODOT_VERSION }}_linux.x86_64" "${{ runner.temp }}/godot/godot"
+          chmod +x "${{ runner.temp }}/godot/godot"
+
+      - name: Add Godot to PATH
+        run: echo "${{ runner.temp }}/godot" >> $GITHUB_PATH
 
       - name: Cache Godot imported assets
         uses: actions/cache@v5
@@ -43,8 +61,7 @@ jobs:
         run: godot --headless --import --quit
 
       - name: Run headless regression tests
-        run: |
-          godot --headless --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
+        run: godot --headless --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
 
       - name: Upload Godot test log on failure
         if: failure()
