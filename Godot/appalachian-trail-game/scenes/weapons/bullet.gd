@@ -6,7 +6,7 @@ extends Area2D
 
 var direction := Vector2.ZERO
 
-func _ready( -> void:
+func _ready() -> void:
 	# 1. Setup Hitbox
 	var final_shape = damage_shape
 	if not final_shape:
