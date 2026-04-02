@@ -89,8 +89,13 @@
         <h3>Error</h3>
         <p>{{ error_message }}</p>
 
-        <a href="{{ return_url }}">Return to Previous Page</a>
+        <button href="{{ return_url }}">Return to Previous Page</button>
 
     </div>
 </body>
+<script>
+    document.querySelector('button').addEventListener('click', function() {
+        window.location.href = "{{ return_url }}";
+    });
+</script>
 </html>
