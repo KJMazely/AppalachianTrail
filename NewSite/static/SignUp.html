@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - Appalachian Trail Game</title>
+    <title>Sign Up - Appalachian Trail Game</title>
     <style>
         body {
             margin: 0;
@@ -85,20 +85,21 @@
 <body>
     <div class="login-container">
         <h2>Appalachian Trail Game</h2>
+        <h3>Account Creation</h3>
 
-        <form method="POST" action="/login">
+        <form method="POST" action="/create">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit">Login</button>
+            <button type="submit">Create Account</button>
         </form>
 
-        <a class="footer-text" href="/SignUp">
-            Don't have an account? Sign up here.
-        </a>
+        <div class="footer-text">
+            Begin your journey on the trail.
+        </div>
     </div>
 </body>
 </html>

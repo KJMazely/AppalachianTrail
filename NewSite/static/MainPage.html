@@ -193,10 +193,14 @@
     }
 
     async function init() {
-        await loadCurrentUser();  
-        await createIframe();     
+        await loadCurrentUser();
+        await createIframe();
         await populateLeaderboard();
     }
+
+    const intervalId = setInterval(() => {
+        populateLeaderboard();
+    }, 5000);
 
     // Run everything in correct order
     window.addEventListener('load', init);

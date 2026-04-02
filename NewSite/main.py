@@ -72,7 +72,23 @@ def update_score():
 def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+    return jsonify(logged_in_as=current_user), 
+    
+@app.route('/SignUp')
+def signUpPage():
+    return app.send_static_file('SignUp.html')
+
+
+@app.route('/create', methods=['POST'])
+def create_new_user():
+    username =  request.form.get('username')
+    password =  request.form.get('password')
+    if not username or not password:
+        return jsonify({'error': 'Username and password are required'}), 400
+    if create_user(username, password, 0):
+        return redirect(url_for('loginPage'))
+    else:
+        return jsonify({'error': 'Failed to create user'}), 400
 
 if __name__ == '__main__': 
     app.run(debug=True) 
