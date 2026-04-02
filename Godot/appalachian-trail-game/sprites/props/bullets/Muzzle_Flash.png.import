@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqpy1pxyq73rv"
-path="res://.godot/imported/Player.png-6ad97dc0d7d497fbd410dec4a2441102.ctex"
+uid="uid://ciuwgldbvb7qj"
+path="res://.godot/imported/Muzzle_Flash.png-47f671895d43586931089381e6141bb3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Player.png"
-dest_files=["res://.godot/imported/Player.png-6ad97dc0d7d497fbd410dec4a2441102.ctex"]
+source_file="res://sprites/props/bullets/Muzzle_Flash.png"
+dest_files=["res://.godot/imported/Muzzle_Flash.png-47f671895d43586931089381e6141bb3.ctex"]
 
 [params]
 
