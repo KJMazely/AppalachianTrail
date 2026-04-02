@@ -9,6 +9,13 @@ on:
 permissions:
   contents: read
 
+env:
+  GODOT_VERSION: 4.6-stable
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   headless-tests:
     runs-on: ubuntu-latest
@@ -16,44 +23,28 @@ jobs:
       run:
         shell: bash
         working-directory: Godot/appalachian-trail-game
-    env:
-      GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.6-stable/Godot_v4.6-stable_linux.x86_64.zip
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
 
-      - name: Cache Godot editor archive
-        id: cache-godot
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+
+      - name: Cache Godot imported assets
         uses: actions/cache@v5
         with:
-          path: ${{ runner.temp }}/godot-download/Godot_v4.6-stable_linux.x86_64.zip
-          key: godot-4.6-stable-linux-x86_64
-
-      - name: Install unzip dependency
-        run: sudo apt-get update && sudo apt-get install --yes unzip
-
-      - name: Download Godot editor
-        run: |
-          set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/godot-download" "$RUNNER_TEMP/godot"
-          ARCHIVE_PATH="$RUNNER_TEMP/godot-download/Godot_v4.6-stable_linux.x86_64.zip"
-          if [[ ! -f "$ARCHIVE_PATH" ]]; then
-            curl --fail --location --show-error --output "$ARCHIVE_PATH" "$GODOT_DOWNLOAD_URL"
-          fi
-          unzip -Z -1 "$ARCHIVE_PATH" | head -n 5
-          unzip -qo "$ARCHIVE_PATH" -d "$RUNNER_TEMP/godot"
-          GODOT_BIN="$(find "$RUNNER_TEMP/godot" -type f -name 'Godot_v*-stable_linux.x86_64' | head -n 1)"
-          test -n "$GODOT_BIN"
-          chmod +x "$GODOT_BIN"
-          echo "GODOT_BIN=$GODOT_BIN" >> "$GITHUB_ENV"
+          path: Godot/appalachian-trail-game/.godot/imported
+          key: godot-imported-${{ hashFiles('Godot/appalachian-trail-game/project.godot', 'Godot/appalachian-trail-game/**/*.gd', 'Godot/appalachian-trail-game/**/*.tscn', 'Godot/appalachian-trail-game/**/*.tres', 'Godot/appalachian-trail-game/**/*.res') }}
 
       - name: Import project assets
-        run: |
-          "$GODOT_BIN" --headless --path . --import
+        run: godot --headless --import --quit
 
       - name: Run headless regression tests
         run: |
-          "$GODOT_BIN" --headless --path . --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
+          godot --headless --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
 
       - name: Upload Godot test log on failure
         if: failure()
