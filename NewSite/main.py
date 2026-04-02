@@ -27,7 +27,7 @@ def login():
 
         return resp
     else:
-        return 'Invalid username or password', 401
+        return error_page("Invalid username or password.", url_for('loginPage'))
 
 @app.route('/play') 
 @jwt_required()
@@ -84,11 +84,14 @@ def create_new_user():
     username =  request.form.get('username')
     password =  request.form.get('password')
     if not username or not password:
-        return jsonify({'error': 'Username and password are required'}), 400
+        return error_page("Username and password are required.", url_for('signUpPage'))
     if create_user(username, password, 0):
         return redirect(url_for('loginPage'))
     else:
-        return jsonify({'error': 'Failed to create user'}), 400
+        return error_page("Failed to create user.", url_for('signUpPage'))
+
+def error_page(error, returnurl):
+    return render_template('ErrorPage.html', error_message=error, return_url=returnurl)
 
 if __name__ == '__main__': 
-    app.run(debug=True) 
+    app.run(debug=True)
