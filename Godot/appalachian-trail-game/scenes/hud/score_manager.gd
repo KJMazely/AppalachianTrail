@@ -18,7 +18,7 @@ func add_points(amount: int):
 	ScoreChanged.emit(score)
 
 
-func set_health(new_health: int, new_max: int):
+func set_health(new_health: int, new_max: int:
 	current_health = new_health
 	#max_health = new_max
 	HealthChanged.emit(current_health)
