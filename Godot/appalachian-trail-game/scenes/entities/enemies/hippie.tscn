@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="1_6cbc0"]
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_hmbgm"]
 [ext_resource type="Resource" uid="uid://ctl7o7tqpadlh" path="res://resources/hippie_stats.tres" id="2_hmbgm"]
+[ext_resource type="AudioStream" uid="uid://ormo1vlwvd6n" path="res://audio/ElevenLabs_A_distressed_scream_echoing_from_a_haunted_character___Aaaah!_.mp3" id="3_ovnob"]
 [ext_resource type="Texture2D" uid="uid://cj56ph6i7uotv" path="res://sprites/enemies/Hippie.png" id="4_ovnob"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
@@ -187,11 +188,14 @@ states/moving/position = Vector2(556, 68)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i"), "moving", "dead", SubResource("AnimationNodeStateMachineTransition_gflvi"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_20lqd"), "dead", "End", SubResource("AnimationNodeStateMachineTransition_j3iiu")]
 graph_offset = Vector2(38.34012, 23.484243)
 
+[sub_resource type="AudioStream" id="AudioStream_ovnob"]
+
 [node name="Hippie" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_hmbgm")
 stats = ExtResource("2_hmbgm")
 can_shoot = true
 shoot_range = 500.0
+hurt_sound = ExtResource("3_ovnob")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)
@@ -218,5 +222,8 @@ libraries/ = SubResource("AnimationLibrary_bjvvg")
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_7wli1")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1618296294]
+stream = SubResource("AudioStream_ovnob")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

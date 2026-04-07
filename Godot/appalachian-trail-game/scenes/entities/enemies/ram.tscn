@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_po4oq"]
 [ext_resource type="Resource" uid="uid://bcf64t485blgq" path="res://resources/ram_stats.tres" id="2_po4oq"]
+[ext_resource type="AudioStream" uid="uid://c48bk1i84duqb" path="res://audio/Ram 1.wav" id="3_om4rg"]
 [ext_resource type="Texture2D" uid="uid://biiwtm2h2721o" path="res://sprites/enemies/Ram.png" id="3_po4oq"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_btmt5"]
 
@@ -135,9 +136,12 @@ _data = {
 &"moving": SubResource("Animation_eekwb")
 }
 
+[sub_resource type="AudioStream" id="AudioStream_0skcg"]
+
 [node name="Ram" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_po4oq")
 stats = ExtResource("2_po4oq")
+hurt_sound = ExtResource("3_om4rg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)
@@ -165,5 +169,8 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2085295333]
 libraries/ = SubResource("AnimationLibrary_6geew")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1485673020]
+stream = SubResource("AudioStream_0skcg")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
