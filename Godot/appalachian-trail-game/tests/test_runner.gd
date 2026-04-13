@@ -135,7 +135,10 @@ func test_bigfoot_walks_to_cover_then_hides() -> void:
 		marker.add_to_group("boss_tree_cover")
 		arena.add_child(marker)
 
-	var boss: CharacterBody2D = BIGFOOT_BOSS_SCENE.instantiate()
+	var boss: CharacterBody2D = BIGFOOT_BOSS_SCENE.instantiate() if BIGFOOT_BOSS_SCENE != null else null
+	if boss == null:
+		failures.append("test_bigfoot_walks_to_cover_then_hides: Boss scene failed to load.")
+		return
 	boss.global_position = Vector2(0, 0)
 	boss.set("move_speed", 320.0)
 	boss.set("hide_duration", 0.2)

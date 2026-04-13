@@ -17,12 +17,23 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v5
 
+      - name: Cache Godot binary
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.GODOT_BIN }}
+          key: godot-${{ env.GODOT_VERSION }}
+
       - name: Download Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
           curl -L -o "${GODOT_ZIP}" "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/${GODOT_ZIP}"
           unzip -q "${GODOT_ZIP}"
           mv "Godot_v4.6-stable_linux.x86_64" "${GODOT_BIN}"
           chmod +x "${GODOT_BIN}"
+
+      - name: Ensure Godot is executable
+        run: chmod +x "${GODOT_BIN}"
 
       - name: Import Godot project
         run: |

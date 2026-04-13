@@ -20,7 +20,7 @@ config/features=PackedStringArray("4.6", "GL Compatibility")
 
 [autoload]
 
-ScoreManager="*uid://crbb1t78myevu"
+ScoreManager="*res://scenes/hud/score_manager.gd"
 
 [display]
 
