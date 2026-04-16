@@ -23,13 +23,15 @@ enum State {
 @export var shoot_range: float = 200.0
 @export var shoot_cooldown: float = 2.0
 @export var bullet_scene: PackedScene = preload("res://scenes/weapons/bullet.tscn")
+@export var projectile_speed: float = 500.0
+@export var projectile_texture: Texture2D
+@export var projectile_size_scale: float = 1.0
 
 @export_group("Audio Settings")
 @export var hurt_sound: AudioStream
 @export var attack_sound: AudioStream
 @export var shoot_sound: AudioStream
 @export var death_sound: AudioStream
-# NEW: How long the enemy must wait before it can play another sound
 @export var audio_cooldown: float = 0.4 
 
 var state: State = State.IDLE
@@ -133,11 +135,66 @@ func spawn_bullet() -> void:
 		
 	var bullet = bullet_scene.instantiate()
 	bullet.stats = stats 
+	if "speed" in bullet:
+		bullet.speed = projectile_speed
 	var dir_to_player = global_position.direction_to(player.global_position)
 	bullet.set_direction(dir_to_player)
+	_apply_projectile_overrides(bullet)
+	_keep_projectile_visual_upright(bullet)
 	
 	get_tree().root.add_child(bullet)
 	bullet.global_position = global_position
+
+func _apply_projectile_overrides(projectile: Node) -> void:
+	if projectile_texture:
+		var projectile_sprite := projectile.get_node_or_null("Sprite2D") as Sprite2D
+		if projectile_sprite:
+			projectile_sprite.texture = projectile_texture
+
+		var projectile_body_sprite := projectile.get_node_or_null("ProjectileBody") as Sprite2D
+		if projectile_body_sprite:
+			projectile_body_sprite.texture = projectile_texture
+
+	if is_equal_approx(projectile_size_scale, 1.0):
+		return
+
+	var scaled_shape := projectile.get("damage_shape") as Shape2D
+	if scaled_shape:
+		projectile.set("damage_shape", _scale_shape(scaled_shape, projectile_size_scale))
+
+	var collision_shape := projectile.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if collision_shape and collision_shape.shape:
+		collision_shape.shape = _scale_shape(collision_shape.shape, projectile_size_scale)
+
+	var projectile_sprite_node := projectile.get_node_or_null("Sprite2D") as Node2D
+	if projectile_sprite_node:
+		projectile_sprite_node.scale *= projectile_size_scale
+
+	var projectile_body_node := projectile.get_node_or_null("ProjectileBody") as Node2D
+	if projectile_body_node:
+		projectile_body_node.scale *= projectile_size_scale
+
+func _keep_projectile_visual_upright(projectile: Node) -> void:
+	var projectile_sprite := projectile.get_node_or_null("Sprite2D") as Node2D
+	if projectile_sprite:
+		projectile_sprite.rotation = -projectile.rotation
+
+	var projectile_body := projectile.get_node_or_null("ProjectileBody") as Node2D
+	if projectile_body:
+		projectile_body.rotation = -projectile.rotation
+
+func _scale_shape(shape: Shape2D, amount: float) -> Shape2D:
+	var scaled_shape := shape.duplicate()
+
+	if scaled_shape is CircleShape2D:
+		(scaled_shape as CircleShape2D).radius *= amount
+	elif scaled_shape is RectangleShape2D:
+		(scaled_shape as RectangleShape2D).size *= amount
+	elif scaled_shape is CapsuleShape2D:
+		(scaled_shape as CapsuleShape2D).radius *= amount
+		(scaled_shape as CapsuleShape2D).height *= amount
+
+	return scaled_shape
 
 func handle_hit(hitter_position: Vector2) -> void:
 	if state == State.DEAD:

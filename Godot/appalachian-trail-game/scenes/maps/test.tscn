@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://b27gvc74owpnb"
 resource_local_to_scene = true
 resource_name = "hippie_stats"
 script = ExtResource("2_dlq7p")
+base_max_health = 130
 faction = 1
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
@@ -21,7 +22,6 @@ metadata/_custom_type_script = "uid://b27gvc74owpnb"
 [node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_0jfhv")]
 stats = SubResource("Resource_0jfhv")
 
-[node name="Hippie" parent="." unique_id=537859828 instance=ExtResource("3_3nlp5")]
-position = Vector2(402, 71)
+[node name="Hippie" parent="." unique_id=2094345577 instance=ExtResource("3_3nlp5")]
+position = Vector2(609, 27)
 stats = SubResource("Resource_dlq7p")
-can_shoot = false

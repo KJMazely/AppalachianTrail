@@ -10,10 +10,9 @@
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lj3tj"]
 playback_mode = 1
-streams_count = 3
-stream_0/stream = ExtResource("3_a2q13")
-stream_1/stream = ExtResource("5_saeab")
-stream_2/stream = ExtResource("5_kptpq")
+streams_count = 2
+stream_0/stream = ExtResource("5_saeab")
+stream_1/stream = ExtResource("5_kptpq")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
 radius = 29.017237

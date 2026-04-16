@@ -3,8 +3,21 @@
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="1_6cbc0"]
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_hmbgm"]
 [ext_resource type="Resource" uid="uid://ctl7o7tqpadlh" path="res://resources/hippie_stats.tres" id="2_hmbgm"]
-[ext_resource type="AudioStream" uid="uid://ormo1vlwvd6n" path="res://audio/ElevenLabs_A_distressed_scream_echoing_from_a_haunted_character___Aaaah!_.mp3" id="3_ovnob"]
+[ext_resource type="AudioStream" uid="uid://dev0ty5ugf3xl" path="res://audio/hippie hurt 1.mp3" id="3_grglq"]
+[ext_resource type="AudioStream" uid="uid://cmp6fuhilwibk" path="res://audio/hippie hurt 2.mp3" id="4_fth56"]
 [ext_resource type="Texture2D" uid="uid://cj56ph6i7uotv" path="res://sprites/enemies/Hippie.png" id="4_ovnob"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_grglq"]
+load_path = "res://.godot/imported/Hippie_Bullet.png-a3d1bf72524fe4a3047144107b2166d1.ctex"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_grglq"]
+playback_mode = 1
+random_pitch = 1.084728
+streams_count = 2
+stream_0/stream = ExtResource("3_grglq")
+stream_1/stream = ExtResource("4_fth56")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fth56"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
 radius = 29.017237
@@ -195,7 +208,11 @@ script = ExtResource("1_hmbgm")
 stats = ExtResource("2_hmbgm")
 can_shoot = true
 shoot_range = 500.0
-hurt_sound = ExtResource("3_ovnob")
+projectile_speed = 430.0
+projectile_texture = SubResource("CompressedTexture2D_grglq")
+projectile_size_scale = 0.8
+hurt_sound = SubResource("AudioStreamRandomizer_grglq")
+attack_sound = SubResource("AudioStreamRandomizer_fth56")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)
