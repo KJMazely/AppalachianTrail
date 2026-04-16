@@ -54,7 +54,7 @@ var _knockback_velocity: Vector2 = Vector2.ZERO
 var _initialized_cover_walk: bool = false
 
 @onready var player: Node2D = $"../Player"
-@onready var sprite: Node2D = $Sprite2D
+@onready var sprite: Node2D = $AnimatedSprite2D
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var death_effect_scene: PackedScene = preload("res://scenes/entities/enemies/Death.tscn")
 
@@ -67,8 +67,6 @@ func _ready() -> void:
 
 	_refresh_cover_points()
 	_pick_initial_cover()
-	# TODO: Replace placeholder visuals with your final Bigfoot sprite/animations.
-	# Suggested setup: AnimatedSprite2D child with "hidden", "peek", "throw" animations.
 
 func _physics_process(delta: float) -> void:
 	if state == BossState.DEAD:
@@ -283,6 +281,7 @@ func _set_state(next_state: BossState, timer: float) -> void:
 	_state_timer = maxf(timer, 0.0)
 
 func handle_hit(hitter_position: Vector2) -> void:
+	flash_red()
 	if state == BossState.DEAD:
 		return
 
@@ -299,15 +298,10 @@ func _on_death() -> void:
 		death_effect.global_position = global_position
 		get_parent().add_child(death_effect)
 
-	if death_sound:
-		var temp_audio := AudioStreamPlayer2D.new()
-		temp_audio.stream = death_sound
-		temp_audio.global_position = global_position
-		get_tree().root.add_child(temp_audio)
-		temp_audio.play()
-		temp_audio.finished.connect(temp_audio.queue_free)
-
-	queue_free()
+func flash_red() -> void:
+	var tween = create_tween()
+	sprite.modulate = Color.RED
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.15)
 
 func _play_sound(stream: AudioStream) -> void:
 	if stream and audio_player:

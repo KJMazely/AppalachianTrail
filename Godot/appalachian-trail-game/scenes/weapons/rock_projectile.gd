@@ -10,8 +10,6 @@ extends Area2D
 var direction: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	# TODO: Replace ProjectileBody Polygon2D with your boulder/pebble sprite setup.
-	# Keep the node name "ProjectileBody" or update the lookup below.
 	var final_shape := damage_shape
 	if not final_shape:
 		var circle := CircleShape2D.new()
@@ -37,7 +35,8 @@ func _ready() -> void:
 
 	var visual := get_node_or_null("ProjectileBody")
 	if visual and visual is Node2D:
-		(visual as Node2D).scale = Vector2.ONE * projectile_size_scale
+		# Preserve the scene-authored base scale so boulders and pebbles can share one sprite.
+		(visual as Node2D).scale *= projectile_size_scale
 
 func set_direction(dir: Vector2) -> void:
 	direction = dir.normalized()
