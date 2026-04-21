@@ -3,6 +3,9 @@ extends Node2D
 const COUGAR_SCENE := preload("res://scenes/entities/enemies/cougar.tscn")
 const RAM_SCENE := preload("res://scenes/entities/enemies/ram.tscn")
 const BIGFOOT_BOSS_SCENE := preload("res://scenes/entities/enemies/bigfoot_boss.tscn")
+const ENDLESS_MODE_CONTROLLER_SCRIPT := preload("res://scripts/endless_mode_controller.gd")
+
+var _endless_controller: Node = null
 
 func _ready() -> void:
 	var wave_controller: WaveController = $WaveController
@@ -14,8 +17,31 @@ func _ready() -> void:
 	if not wave_controller.waves_completed.is_connected(_on_waves_completed):
 		wave_controller.waves_completed.connect(_on_waves_completed)
 
+	if not ScoreManager.endless_requested.is_connected(_on_endless_requested):
+		ScoreManager.endless_requested.connect(_on_endless_requested)
+
 func _on_waves_completed() -> void:
-	ScoreManager.end_game()
+	ScoreManager.end_game("win", true)
+
+func _on_endless_requested() -> void:
+	if _endless_controller != null and is_instance_valid(_endless_controller):
+		return
+
+	if ENDLESS_MODE_CONTROLLER_SCRIPT == null:
+		push_warning("Endless mode controller script missing.")
+		return
+
+	var controller: Node = ENDLESS_MODE_CONTROLLER_SCRIPT.new()
+	_endless_controller = controller
+	add_child(controller)
+
+	if controller.has_method("set_player"):
+		controller.call("set_player", get_node_or_null("Player"))
+	elif "player" in controller:
+		controller.set("player", get_node_or_null("Player"))
+
+	if controller.has_method("start"):
+		controller.call("start")
 
 func _build_main_waves() -> Array[Dictionary]:
 	return [

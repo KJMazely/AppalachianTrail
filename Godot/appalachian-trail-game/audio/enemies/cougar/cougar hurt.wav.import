@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://4m6sws5o5nni"
+path="res://.godot/imported/cougar hurt.wav-d380e6149d1cad2ef898056b0eda1e38.sample"
+
+[deps]
+
+source_file="res://audio/enemies/cougar/cougar hurt.wav"
+dest_files=["res://.godot/imported/cougar hurt.wav-d380e6149d1cad2ef898056b0eda1e38.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

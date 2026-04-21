@@ -3,13 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="1_0jfhv"]
 [ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_dlq7p"]
 [ext_resource type="PackedScene" uid="uid://lotn7rg4verc" path="res://scenes/entities/enemies/hippie.tscn" id="3_3nlp5"]
+[ext_resource type="PackedScene" uid="uid://cu3cp02l4vhqm" path="res://scenes/entities/enemies/ram.tscn" id="4_dlq7p"]
+[ext_resource type="PackedScene" uid="uid://cp47ufubbddw" path="res://scenes/entities/enemies/cougar.tscn" id="5_3nlp5"]
+[ext_resource type="AudioStream" uid="uid://b7qte7x1ufmc7" path="res://audio/winters-approach.mp3" id="6_xc7b3"]
 
-[sub_resource type="Resource" id="Resource_0jfhv"]
+[sub_resource type="Resource" id="Resource_r2xvh"]
 resource_local_to_scene = true
 script = ExtResource("2_dlq7p")
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
-[sub_resource type="Resource" id="Resource_dlq7p"]
+[sub_resource type="Resource" id="Resource_j8273"]
 resource_local_to_scene = true
 resource_name = "hippie_stats"
 script = ExtResource("2_dlq7p")
@@ -17,11 +20,38 @@ base_max_health = 130
 faction = 1
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
 
+[sub_resource type="Resource" id="Resource_llp6g"]
+resource_local_to_scene = true
+resource_name = "ram_stats"
+script = ExtResource("2_dlq7p")
+faction = 1
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[sub_resource type="Resource" id="Resource_v5365"]
+resource_local_to_scene = true
+resource_name = "cougar_stats"
+script = ExtResource("2_dlq7p")
+faction = 1
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
 [node name="Test" type="Node2D" unique_id=1910527724]
 
 [node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_0jfhv")]
-stats = SubResource("Resource_0jfhv")
+stats = SubResource("Resource_r2xvh")
 
-[node name="Hippie" parent="." unique_id=2094345577 instance=ExtResource("3_3nlp5")]
-position = Vector2(609, 27)
-stats = SubResource("Resource_dlq7p")
+[node name="Hippie" parent="." unique_id=786638596 instance=ExtResource("3_3nlp5")]
+position = Vector2(630, 180)
+stats = SubResource("Resource_j8273")
+
+[node name="Ram" parent="." unique_id=1631845899 instance=ExtResource("4_dlq7p")]
+position = Vector2(324, 419)
+stats = SubResource("Resource_llp6g")
+
+[node name="Cougar" parent="." unique_id=117981959 instance=ExtResource("5_3nlp5")]
+position = Vector2(-200, 399)
+stats = SubResource("Resource_v5365")
+
+[node name="WinterAmbience" type="AudioStreamPlayer" parent="." unique_id=1506188645]
+stream = ExtResource("6_xc7b3")
+volume_db = -13.0
+autoplay = true

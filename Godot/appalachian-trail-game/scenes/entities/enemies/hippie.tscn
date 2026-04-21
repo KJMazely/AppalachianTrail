@@ -3,21 +3,35 @@
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="1_6cbc0"]
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_hmbgm"]
 [ext_resource type="Resource" uid="uid://ctl7o7tqpadlh" path="res://resources/hippie_stats.tres" id="2_hmbgm"]
-[ext_resource type="AudioStream" uid="uid://dev0ty5ugf3xl" path="res://audio/hippie hurt 1.mp3" id="3_grglq"]
-[ext_resource type="AudioStream" uid="uid://cmp6fuhilwibk" path="res://audio/hippie hurt 2.mp3" id="4_fth56"]
+[ext_resource type="AudioStream" uid="uid://dwhyc7k1lh8l3" path="res://audio/enemies/hippie/hippie hurt 1.mp3" id="3_x0ied"]
+[ext_resource type="AudioStream" uid="uid://dvolsce6d4e7i" path="res://audio/enemies/hippie/hippie hurt 2.mp3" id="4_o13kx"]
 [ext_resource type="Texture2D" uid="uid://cj56ph6i7uotv" path="res://sprites/enemies/Hippie.png" id="4_ovnob"]
+[ext_resource type="AudioStream" uid="uid://nl4bybilw8v8" path="res://audio/enemies/hippie/hippie hurt 3.mp3" id="5_xyyj1"]
+[ext_resource type="AudioStream" uid="uid://c0ru07xvfky1r" path="res://audio/enemies/hippie/hippie hurt 4.mp3" id="6_kr7sj"]
+[ext_resource type="AudioStream" uid="uid://76fckljcp0su" path="res://audio/enemies/hippie/hippie shoot 1.mp3" id="7_x0ied"]
+[ext_resource type="AudioStream" uid="uid://ddh6drh4vnbfq" path="res://audio/enemies/hippie/hippie death 2.mp3" id="8_1tbiu"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_grglq"]
 load_path = "res://.godot/imported/Hippie_Bullet.png-a3d1bf72524fe4a3047144107b2166d1.ctex"
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_grglq"]
-playback_mode = 1
-random_pitch = 1.084728
-streams_count = 2
-stream_0/stream = ExtResource("3_grglq")
-stream_1/stream = ExtResource("4_fth56")
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7rpsh"]
+random_pitch = 1.1892071
+streams_count = 4
+stream_0/stream = ExtResource("3_x0ied")
+stream_1/stream = ExtResource("4_o13kx")
+stream_2/stream = ExtResource("5_xyyj1")
+stream_3/stream = ExtResource("6_kr7sj")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fth56"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xyyj1"]
+playback_mode = 1
+random_pitch = 1.4142135
+streams_count = 1
+stream_0/stream = ExtResource("7_x0ied")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x0ied"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("8_1tbiu")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
 radius = 29.017237
@@ -211,8 +225,9 @@ shoot_range = 500.0
 projectile_speed = 430.0
 projectile_texture = SubResource("CompressedTexture2D_grglq")
 projectile_size_scale = 0.8
-hurt_sound = SubResource("AudioStreamRandomizer_grglq")
-attack_sound = SubResource("AudioStreamRandomizer_fth56")
+hurt_sound = SubResource("AudioStreamRandomizer_7rpsh")
+shoot_sound = SubResource("AudioStreamRandomizer_xyyj1")
+death_sound = SubResource("AudioStreamRandomizer_x0ied")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)

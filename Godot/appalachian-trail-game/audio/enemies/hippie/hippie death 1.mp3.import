@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://kfn8icop40p8"
+path="res://.godot/imported/hippie death 1.mp3-8d07880404c35564c25b3339663fc50e.mp3str"
+
+[deps]
+
+source_file="res://audio/enemies/hippie/hippie death 1.mp3"
+dest_files=["res://.godot/imported/hippie death 1.mp3-8d07880404c35564c25b3339663fc50e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

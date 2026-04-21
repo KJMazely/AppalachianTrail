@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://76fckljcp0su"
+path="res://.godot/imported/hippie shoot 1.mp3-a5dc74386a73ed3b8c4ec1280562b9a3.mp3str"
+
+[deps]
+
+source_file="res://audio/enemies/hippie/hippie shoot 1.mp3"
+dest_files=["res://.godot/imported/hippie shoot 1.mp3-a5dc74386a73ed3b8c4ec1280562b9a3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

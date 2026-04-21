@@ -2,17 +2,19 @@ extends CharacterBody2D
 
 enum BossState {
 	WALK_TO_FIRST_TREE,
+	OPENING_TELEPORTS,
 	HIDDEN_BEHIND_TREE,
 	PEEKING,
 	ATTACKING,
 	TELEPORTING,
+	WALKING_TO_COVER,
 	RELOCATE,
 	DEAD,
 }
 
 @export_group("Boss Stats")
 @export var stats: Stats
-@export var move_speed: float = 90.0
+@export var move_speed: float = 150.0
 @export var friction: float = 900.0
 @export var score_value: int = 50
 
@@ -23,9 +25,9 @@ enum BossState {
 
 @export_group("Attack Pattern")
 @export var boulder_speed: float = 280.0
-@export var boulder_attack_value: int = 28
+@export var boulder_attack_value: int = 8
 @export var pebble_speed: float = 420.0
-@export var pebble_attack_value: int = 12
+@export var pebble_attack_value: int = 4
 @export var split_shot_count: int = 5
 @export var split_shot_spread_degrees: float = 36.0
 
@@ -40,6 +42,14 @@ enum BossState {
 @export var hide_offset: Vector2 = Vector2(0.0, 14.0)
 @export var peek_offset: Vector2 = Vector2(0.0, -20.0)
 
+@export_group("Opening Teleports")
+@export var opening_teleport_min: int = 2
+@export var opening_teleport_max: int = 4
+@export var opening_teleport_delay: float = 0.25
+
+@export_group("Relocation Walking")
+@export var walk_relocate_chance: float = 0.5
+
 @export_group("Audio")
 @export var hurt_sound: AudioStream
 @export var throw_sound: AudioStream
@@ -52,6 +62,7 @@ var _target_cover: Node2D
 var _state_timer: float = 0.0
 var _knockback_velocity: Vector2 = Vector2.ZERO
 var _initialized_cover_walk: bool = false
+var _opening_teleports_left: int = 0
 
 @onready var player: Node2D = $"../Player"
 @onready var sprite: Node2D = $AnimatedSprite2D
@@ -66,7 +77,7 @@ func _ready() -> void:
 			stats.health_depleted.connect(_on_death)
 
 	_refresh_cover_points()
-	_pick_initial_cover()
+	_spawn_at_random_cover()
 
 func _physics_process(delta: float) -> void:
 	if state == BossState.DEAD:
@@ -78,6 +89,8 @@ func _physics_process(delta: float) -> void:
 	match state:
 		BossState.WALK_TO_FIRST_TREE:
 			_process_walk_to_first_tree(delta)
+		BossState.OPENING_TELEPORTS:
+			_process_opening_teleports(delta)
 		BossState.HIDDEN_BEHIND_TREE:
 			_process_hidden_state(delta)
 		BossState.PEEKING:
@@ -86,6 +99,8 @@ func _physics_process(delta: float) -> void:
 			_process_attacking_state(delta)
 		BossState.TELEPORTING:
 			_process_teleporting_state()
+		BossState.WALKING_TO_COVER:
+			_process_walking_to_cover(delta)
 		BossState.RELOCATE:
 			_process_relocate(delta)
 
@@ -106,6 +121,47 @@ func _process_walk_to_first_tree(delta: float) -> void:
 		_current_cover = _target_cover
 		global_position = _get_hide_position(_current_cover)
 		_set_state(BossState.HIDDEN_BEHIND_TREE, hide_duration)
+
+func _spawn_at_random_cover() -> void:
+	if _cover_points.is_empty():
+		_refresh_cover_points()
+
+	if _cover_points.is_empty():
+		_process_fallback_attack()
+		return
+
+	var start_cover: Node2D = _cover_points[randi() % _cover_points.size()]
+	_current_cover = start_cover
+	_target_cover = null
+	global_position = _get_hide_position(_current_cover)
+
+	var min_count := maxi(opening_teleport_min, 0)
+	var max_count := maxi(opening_teleport_max, min_count)
+	_opening_teleports_left = randi_range(min_count, max_count)
+	if _opening_teleports_left > 0:
+		_set_state(BossState.OPENING_TELEPORTS, opening_teleport_delay)
+	else:
+		_set_state(BossState.HIDDEN_BEHIND_TREE, hide_duration)
+
+func _process_opening_teleports(delta: float) -> void:
+	velocity = _knockback_velocity
+	move_and_slide()
+
+	_state_timer -= delta
+	if _state_timer > 0.0:
+		return
+
+	if _opening_teleports_left <= 0:
+		_set_state(BossState.HIDDEN_BEHIND_TREE, hide_duration)
+		return
+
+	_pick_next_cover()
+	if is_instance_valid(_target_cover):
+		_current_cover = _target_cover
+		global_position = _get_hide_position(_current_cover)
+
+	_opening_teleports_left -= 1
+	_set_state(BossState.OPENING_TELEPORTS, opening_teleport_delay)
 
 func _process_hidden_state(delta: float) -> void:
 	velocity = _knockback_velocity
@@ -155,6 +211,22 @@ func _process_teleporting_state() -> void:
 	else:
 		_set_state(BossState.ATTACKING, 0.0)
 
+func _process_walking_to_cover(delta: float) -> void:
+	if not is_instance_valid(_target_cover):
+		_pick_next_cover()
+		if not is_instance_valid(_target_cover):
+			_set_state(BossState.ATTACKING, 0.0)
+			return
+
+	_move_toward_position(_get_hide_position(_target_cover), delta)
+
+	if global_position.distance_to(_get_hide_position(_target_cover)) <= cover_arrival_distance:
+		velocity = _knockback_velocity
+		move_and_slide()
+		_current_cover = _target_cover
+		global_position = _get_hide_position(_current_cover)
+		_set_state(BossState.HIDDEN_BEHIND_TREE, hide_duration)
+
 func _process_relocate(delta: float) -> void:
 	velocity = _knockback_velocity
 	move_and_slide()
@@ -163,7 +235,11 @@ func _process_relocate(delta: float) -> void:
 	if _state_timer > 0.0:
 		return
 
-	_set_state(BossState.TELEPORTING, 0.0)
+	if randf() < clampf(walk_relocate_chance, 0.0, 1.0):
+		_pick_next_cover()
+		_set_state(BossState.WALKING_TO_COVER, 0.0)
+	else:
+		_set_state(BossState.TELEPORTING, 0.0)
 
 func _process_fallback_attack() -> void:
 	state = BossState.ATTACKING
@@ -298,12 +374,22 @@ func _on_death() -> void:
 		death_effect.global_position = global_position
 		get_parent().add_child(death_effect)
 
+	if death_sound:
+		var temp_audio := AudioStreamPlayer2D.new()
+		temp_audio.stream = death_sound
+		temp_audio.global_position = global_position
+		get_tree().root.add_child(temp_audio)
+		temp_audio.play()
+		temp_audio.finished.connect(temp_audio.queue_free)
+
+	queue_free()
+
 func flash_red() -> void:
 	var tween = create_tween()
 	sprite.modulate = Color.RED
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.15)
 
 func _play_sound(stream: AudioStream) -> void:
-	if stream and audio_player:
+	if stream and stream.get_class() != "AudioStream" and audio_player:
 		audio_player.stream = stream
 		audio_player.play()
