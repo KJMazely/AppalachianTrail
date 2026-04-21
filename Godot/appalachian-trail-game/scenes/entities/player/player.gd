@@ -149,19 +149,19 @@ func _on_death() -> void:
 	print("Player: _on_death called for ", name)
 	state = State.DEAD
 	queue_free()
-	ScoreManager.end_game()
+	ScoreManager.end_game("lose", false)
 
 
 # --- NEW: AUDIO HELPER FUNCTIONS ---
 
 func play_shoot_sound() -> void:
 	# Guns usually don't need a heavy cooldown timer since the attack speed handles it naturally
-	if shoot_sound and shoot_audio:
+	if shoot_sound and shoot_sound.get_class() != "AudioStream" and shoot_audio:
 		shoot_audio.stream = shoot_sound
 		shoot_audio.play()
 
 func play_move_sound() -> void:
-	if move_sound and move_audio and can_play_move:
+	if move_sound and move_sound.get_class() != "AudioStream" and move_audio and can_play_move:
 		move_audio.stream = move_sound
 		move_audio.play()
 		can_play_move = false
@@ -173,7 +173,7 @@ func play_move_sound() -> void:
 			can_play_move = true
 
 func play_hurt_sound() -> void:
-	if hurt_sound and hurt_audio and can_play_hurt:
+	if hurt_sound and hurt_sound.get_class() != "AudioStream" and hurt_audio and can_play_hurt:
 		hurt_audio.stream = hurt_sound
 		hurt_audio.play()
 		can_play_hurt = false

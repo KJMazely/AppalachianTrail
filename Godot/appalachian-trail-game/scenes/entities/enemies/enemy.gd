@@ -230,7 +230,7 @@ func _on_death() -> void:
 	deathsprite_instance.global_position = global_position
 	get_parent().add_child(deathsprite_instance)
 
-	if death_sound:
+	if death_sound and death_sound.get_class() != "AudioStream":
 		var temp_audio = AudioStreamPlayer2D.new()
 		temp_audio.stream = death_sound
 		temp_audio.global_position = global_position
@@ -243,7 +243,7 @@ func _on_death() -> void:
 # UPDATED: Added Timer Logic
 func play_sound(stream: AudioStream) -> void:
 	# Only play if we have a stream, the player exists, AND the audio cooldown is finished
-	if stream != null and audio_player != null and can_play_audio:
+	if stream != null and stream.get_class() != "AudioStream" and audio_player != null and can_play_audio:
 		audio_player.stream = stream
 		audio_player.play()
 		

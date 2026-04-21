@@ -390,6 +390,6 @@ func flash_red() -> void:
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.15)
 
 func _play_sound(stream: AudioStream) -> void:
-	if stream and audio_player:
+	if stream and stream.get_class() != "AudioStream" and audio_player:
 		audio_player.stream = stream
 		audio_player.play()

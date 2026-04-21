@@ -236,7 +236,6 @@ tree_root = SubResource("AnimationNodeStateMachine_7wli1")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2147029882]
-stream = SubResource("AudioStream_kptpq")
-autoplay = true
+autoplay = false
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

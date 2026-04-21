@@ -8,6 +8,10 @@ var current_health := 0
 signal HealthChanged(new_health, new_max_health)
 
 var end_screen_node: CanvasLayer = null
+signal endless_requested
+
+var _end_reason: String = ""
+var _allow_endless: bool = false
 
 func _ready():
 	# This ensures the score_manager keeps working even when the game is paused
@@ -23,9 +27,13 @@ func set_health(new_health: int, new_max: int):
 	#max_health = new_max
 	HealthChanged.emit(current_health)
 
-func end_game():
+func end_game(reason: String = "lose", allow_endless: bool = false) -> void:
 	# Prevents creating multiple end screens if called twice
-	if end_screen_node != null: return 
+	if end_screen_node != null:
+		return
+
+	_end_reason = reason
+	_allow_endless = allow_endless and reason == "win"
 	
 	# 1. Create the overlay layer
 	end_screen_node = CanvasLayer.new()
@@ -40,7 +48,11 @@ func end_game():
 
 	# 3. Create the Text
 	var label = Label.new()
-	label.text = "THE END\nFinal Score: " + str(score) + "\n\nPress 'R' to Restart"
+	var header_text := "YOU WIN!" if _end_reason == "win" else "THE END"
+	var prompt_text := "Press 'R' to Restart"
+	if _allow_endless:
+		prompt_text += "\nPress 'E' for Endless Mode"
+	label.text = "%s\nFinal Score: %s\n\n%s" % [header_text, str(score), prompt_text]
 	label.horizontal_alignment = 1 
 	label.vertical_alignment = 1
 	label.modulate.a = 0
@@ -62,6 +74,24 @@ func _input(event):
 	if end_screen_node != null:
 		if event.is_action_pressed("ui_accept") or (event is InputEventKey and event.keycode == KEY_R):
 			restart_game()
+			return
+
+		if _allow_endless:
+			if event.is_action_pressed("endless_mode") or (event is InputEventKey and event.keycode == KEY_E):
+				start_endless_mode()
+				return
+
+func start_endless_mode() -> void:
+	if end_screen_node == null:
+		return
+
+	get_tree().paused = false
+
+	if end_screen_node:
+		end_screen_node.queue_free()
+		end_screen_node = null
+
+	endless_requested.emit()
 
 func restart_game():
 	# 1. Unpause the game first
