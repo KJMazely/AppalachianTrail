@@ -6,7 +6,7 @@
 resource_local_to_scene = true
 resource_name = "bigfoot_stats"
 script = ExtResource("1_stats")
-base_max_health = 400
-base_defense = 30
-base_attack = 18
+base_max_health = 260
+base_defense = 10
+base_attack = 20
 faction = 1
