@@ -3,16 +3,21 @@
 [ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_essrt"]
 [ext_resource type="Texture2D" uid="uid://3etdnx7r31ix" path="res://sprites/enemies/Cougar.png" id="2_essrt"]
 [ext_resource type="Resource" uid="uid://bwagopsvxcmk7" path="res://resources/cougar_stats.tres" id="2_ynwkg"]
-[ext_resource type="AudioStream" uid="uid://drwpe12ph37ur" path="res://audio/cougar hurt.wav" id="3_a2q13"]
+[ext_resource type="AudioStream" uid="uid://bon6ly5jrd3sv" path="res://audio/enemies/cougar/cougar 1.wav" id="3_kptpq"]
+[ext_resource type="AudioStream" uid="uid://djbp1hfdoyclk" path="res://audio/enemies/cougar/cougar 2.wav" id="4_lj3tj"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_pm80n"]
-[ext_resource type="AudioStream" uid="uid://c1ua18f8qn6bu" path="res://audio/cougar 2.wav" id="5_kptpq"]
-[ext_resource type="AudioStream" uid="uid://b53prwalfavhv" path="res://audio/cougar 1.wav" id="5_saeab"]
+[ext_resource type="AudioStream" uid="uid://4m6sws5o5nni" path="res://audio/enemies/cougar/cougar hurt.wav" id="5_2opxw"]
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lj3tj"]
-playback_mode = 1
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qiq4q"]
+random_pitch = 1.1892071
 streams_count = 2
-stream_0/stream = ExtResource("5_saeab")
-stream_1/stream = ExtResource("5_kptpq")
+stream_0/stream = ExtResource("3_kptpq")
+stream_1/stream = ExtResource("4_lj3tj")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kptpq"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("5_2opxw")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
 radius = 29.017237
@@ -201,9 +206,8 @@ graph_offset = Vector2(38.34012, 23.484243)
 [node name="Cougar" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_essrt")
 stats = ExtResource("2_ynwkg")
-hurt_sound = SubResource("AudioStreamRandomizer_lj3tj")
-attack_sound = ExtResource("5_saeab")
-death_sound = ExtResource("3_a2q13")
+hurt_sound = SubResource("AudioStreamRandomizer_qiq4q")
+death_sound = SubResource("AudioStreamRandomizer_kptpq")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -28)

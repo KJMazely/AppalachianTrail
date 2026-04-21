@@ -3,16 +3,18 @@
 [ext_resource type="Script" uid="uid://b2xueslysrsnw" path="res://scenes/entities/player/player.gd" id="1_635qg"]
 [ext_resource type="Resource" uid="uid://dy0lneeu1fy77" path="res://resources/player_stats.tres" id="2_8akj5"]
 [ext_resource type="Texture2D" uid="uid://c76gbcvhg7vdo" path="res://sprites/player/Playerwagon.png" id="2_nh4ur"]
+[ext_resource type="AudioStream" uid="uid://dbgv7drkqesar" path="res://audio/player/Player Gunshot 1.mp3" id="3_bj7e2"]
+[ext_resource type="AudioStream" uid="uid://ckm7e1ydf232k" path="res://audio/player/player moving.wav" id="4_1murt"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_8akj5"]
 [ext_resource type="PackedScene" uid="uid://ck17v02xg4jkk" path="res://scenes/weapons/gun.tscn" id="4_nh4ur"]
-[ext_resource type="AudioStream" uid="uid://0m6ohyphh73e" path="res://audio/player hurt 1.mp3" id="5_7wli1"]
+[ext_resource type="AudioStream" uid="uid://c40luajtpgkpq" path="res://audio/player/player hurt 1.mp3" id="5_7wli1"]
 [ext_resource type="Script" uid="uid://bvh6s4efwe2l6" path="res://scenes/hud/hud.gd" id="5_bjvvg"]
-[ext_resource type="AudioStream" uid="uid://ct6k31k05cvhl" path="res://audio/player hurt 2.mp3" id="6_j0oqr"]
-[ext_resource type="AudioStream" uid="uid://rsdurhusd3hw" path="res://audio/Player Gunshot 1.mp3" id="7_1murt"]
-[ext_resource type="AudioStream" uid="uid://5usmqitir23n" path="res://audio/player hurt 3.mp3" id="7_xy2vv"]
-[ext_resource type="AudioStream" uid="uid://cu7jbcxlwwni4" path="res://audio/player moving.wav" id="8_5sj0x"]
+[ext_resource type="AudioStream" uid="uid://qegeduk6jpj6" path="res://audio/player/player hurt 2.mp3" id="6_j0oqr"]
+[ext_resource type="AudioStream" uid="uid://crc1nna7mt88o" path="res://audio/player/player hurt 3.mp3" id="7_xy2vv"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r4dfn"]
+playback_mode = 1
+random_pitch = 1.1892071
 streams_count = 3
 stream_0/stream = ExtResource("5_7wli1")
 stream_1/stream = ExtResource("6_j0oqr")
@@ -160,8 +162,8 @@ graph_offset = Vector2(129.76181, -101.78763)
 [node name="Player" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_635qg")
 stats = ExtResource("2_8akj5")
-shoot_sound = ExtResource("7_1murt")
-move_sound = ExtResource("8_5sj0x")
+shoot_sound = ExtResource("3_bj7e2")
+move_sound = ExtResource("4_1murt")
 hurt_sound = SubResource("AudioStreamRandomizer_r4dfn")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
