@@ -2,62 +2,62 @@ name: Godot CI
 
 on:
   push:
-    branches:
-      - GameDev
   pull_request:
 
-permissions:
-  contents: read
-
 jobs:
-  headless-tests:
+  test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: Godot/appalachian-trail-game
+
     env:
-      GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot-builds/releases/download/4.6-stable/Godot_v4.6-stable_linux.x86_64.zip
+      GODOT_VERSION: 4.6-stable
+      GODOT_ZIP: Godot_v4.6-stable_linux.x86_64.zip
+      GODOT_BIN: ./godot
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
 
-      - name: Cache Godot editor archive
+      - name: Cache Godot binary
         id: cache-godot
         uses: actions/cache@v5
         with:
-          path: ${{ runner.temp }}/godot-download/Godot_v4.6-stable_linux.x86_64.zip
-          key: godot-4.6-stable-linux-x86_64
+          path: ${{ env.GODOT_BIN }}
+          key: godot-${{ env.GODOT_VERSION }}
 
-      - name: Install unzip dependency
-        run: sudo apt-get update && sudo apt-get install --yes unzip
-
-      - name: Download Godot editor
+      - name: Download Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
-          set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/godot-download" "$RUNNER_TEMP/godot"
-          ARCHIVE_PATH="$RUNNER_TEMP/godot-download/Godot_v4.6-stable_linux.x86_64.zip"
-          if [[ ! -f "$ARCHIVE_PATH" ]]; then
-            curl --fail --location --show-error --output "$ARCHIVE_PATH" "$GODOT_DOWNLOAD_URL"
-          fi
-          unzip -Z -1 "$ARCHIVE_PATH" | head -n 5
-          unzip -qo "$ARCHIVE_PATH" -d "$RUNNER_TEMP/godot"
-          GODOT_BIN="$(find "$RUNNER_TEMP/godot" -type f -name 'Godot_v*-stable_linux.x86_64' | head -n 1)"
-          test -n "$GODOT_BIN"
-          chmod +x "$GODOT_BIN"
-          echo "GODOT_BIN=$GODOT_BIN" >> "$GITHUB_ENV"
+          curl -L -o "${GODOT_ZIP}" "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/${GODOT_ZIP}"
+          unzip -q "${GODOT_ZIP}"
+          mv "Godot_v4.6-stable_linux.x86_64" "${GODOT_BIN}"
+          chmod +x "${GODOT_BIN}"
 
-      - name: Import project assets
+      - name: Ensure Godot is executable
+        run: chmod +x "${GODOT_BIN}"
+
+      - name: Import Godot project
         run: |
-          "$GODOT_BIN" --headless --path . --import
+          "${GODOT_BIN}" --headless --path "Godot/appalachian-trail-game" --editor --quit || true
+          set +e
+          "${GODOT_BIN}" --headless --path "Godot/appalachian-trail-game" --import > import.log 2>&1
+          status=$?
+          cat import.log
+          exit $status
 
-      - name: Run headless regression tests
+      - name: Run headless tests
         run: |
-          "$GODOT_BIN" --headless --path . --script res://tests/test_runner.gd 2>&1 | tee ci-test.log
+          set +e
+          "${GODOT_BIN}" --headless --path "Godot/appalachian-trail-game" --editor --quit || true
+          "${GODOT_BIN}" --headless --path "Godot/appalachian-trail-game" --script "res://tests/test_runner.gd" > test.log 2>&1
+          status=$?
+          cat test.log
+          exit $status
 
-      - name: Upload Godot test log on failure
+      - name: Upload Godot logs
         if: failure()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
-          name: godot-ci-log
-          path: Godot/appalachian-trail-game/ci-test.log
+          name: godot-logs
+          path: |
+            import.log
+            test.log

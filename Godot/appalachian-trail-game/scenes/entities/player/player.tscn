@@ -5,7 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://c76gbcvhg7vdo" path="res://sprites/player/Playerwagon.png" id="2_nh4ur"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="4_8akj5"]
 [ext_resource type="PackedScene" uid="uid://ck17v02xg4jkk" path="res://scenes/weapons/gun.tscn" id="4_nh4ur"]
+[ext_resource type="AudioStream" uid="uid://0m6ohyphh73e" path="res://audio/player hurt 1.mp3" id="5_7wli1"]
 [ext_resource type="Script" uid="uid://bvh6s4efwe2l6" path="res://scenes/hud/hud.gd" id="5_bjvvg"]
+[ext_resource type="AudioStream" uid="uid://ct6k31k05cvhl" path="res://audio/player hurt 2.mp3" id="6_j0oqr"]
+[ext_resource type="AudioStream" uid="uid://rsdurhusd3hw" path="res://audio/Player Gunshot 1.mp3" id="7_1murt"]
+[ext_resource type="AudioStream" uid="uid://5usmqitir23n" path="res://audio/player hurt 3.mp3" id="7_xy2vv"]
+[ext_resource type="AudioStream" uid="uid://cu7jbcxlwwni4" path="res://audio/player moving.wav" id="8_5sj0x"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r4dfn"]
+streams_count = 3
+stream_0/stream = ExtResource("5_7wli1")
+stream_1/stream = ExtResource("6_j0oqr")
+stream_2/stream = ExtResource("7_xy2vv")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8akj5"]
 size = Vector2(108, 39)
@@ -140,9 +151,18 @@ states/moving/position = Vector2(556, 68)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_nh4ur"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_bjvvg"), "moving", "attack", SubResource("AnimationNodeStateMachineTransition_58kc7"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x")]
 graph_offset = Vector2(129.76181, -101.78763)
 
+[sub_resource type="AudioStream" id="AudioStream_1murt"]
+
+[sub_resource type="AudioStream" id="AudioStream_5sj0x"]
+
+[sub_resource type="AudioStream" id="AudioStream_ovg4i"]
+
 [node name="Player" type="CharacterBody2D" unique_id=1734132446]
 script = ExtResource("1_635qg")
 stats = ExtResource("2_8akj5")
+shoot_sound = ExtResource("7_1murt")
+move_sound = ExtResource("8_5sj0x")
+hurt_sound = SubResource("AudioStreamRandomizer_r4dfn")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
 position = Vector2(0, -27)
@@ -195,3 +215,14 @@ text = "Score: 0"
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Health: 0"
+
+[node name="ShootAudio" type="AudioStreamPlayer2D" parent="." unique_id=1053111577]
+stream = SubResource("AudioStream_1murt")
+volume_db = -10.833
+
+[node name="MoveAudio" type="AudioStreamPlayer2D" parent="." unique_id=685706128]
+stream = SubResource("AudioStream_5sj0x")
+volume_db = 7.584
+
+[node name="HurtAudio" type="AudioStreamPlayer2D" parent="." unique_id=222748287]
+stream = SubResource("AudioStream_ovg4i")

@@ -2,6 +2,7 @@ extends Node2D
 
 const COUGAR_SCENE := preload("res://scenes/entities/enemies/cougar.tscn")
 const RAM_SCENE := preload("res://scenes/entities/enemies/ram.tscn")
+const BIGFOOT_BOSS_SCENE := preload("res://scenes/entities/enemies/bigfoot_boss.tscn")
 
 func _ready() -> void:
 	var wave_controller: WaveController = $WaveController
@@ -61,6 +62,4 @@ func _get_human_scene() -> PackedScene:
 	return preload("res://scenes/entities/enemies/hippie.tscn")
 
 func _get_boss_scene() -> PackedScene:
-	# Replace `return null` with:
-	# return preload("res://path/to/your/boss_enemy.tscn")
-	return null
+	return BIGFOOT_BOSS_SCENE
