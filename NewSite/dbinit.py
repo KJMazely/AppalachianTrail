@@ -36,7 +36,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # add initial users
-if not session.query(User).first():  # Check if the table is empty before adding users
+if not session.query(User).all():  # Check if the table is empty before adding users
     user1 = User(username='spongebob', password=_hash_password('spongebob123'), score=0)
     user2 = User(username='patrick', password=_hash_password('patrick123'), score=20)
     session.add_all([user1, user2])
