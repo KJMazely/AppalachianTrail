@@ -1,5 +1,6 @@
 from flask import Flask, json, jsonify, jsonify, make_response, redirect, render_template, request, session, url_for
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, set_access_cookies
+from waitress import serve
 from dbHandler import check_user_password, create_user, read_user_by_id, update_user_score, delete_user, read_all_users
 app = Flask(__name__) 
 app.config['SECRET_KEY'] = 'your_secret_key'  # Change this to a random secret key in production
@@ -94,4 +95,4 @@ def error_page(error, returnurl):
     return render_template('ErrorPage.html', error_message=error, return_url=returnurl)
 
 if __name__ == '__main__': 
-    app.run(debug=True)
+    serve(app, host='0.0.0.0', port=8080)
