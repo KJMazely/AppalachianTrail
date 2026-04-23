@@ -43,8 +43,8 @@ enum BossState {
 @export var peek_offset: Vector2 = Vector2(0.0, -20.0)
 
 @export_group("Opening Teleports")
-@export var opening_teleport_min: int = 2
-@export var opening_teleport_max: int = 4
+@export var opening_teleport_min: int = 0
+@export var opening_teleport_max: int = 0
 @export var opening_teleport_delay: float = 0.25
 
 @export_group("Relocation Walking")

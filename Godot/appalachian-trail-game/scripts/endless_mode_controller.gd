@@ -3,6 +3,7 @@ class_name EndlessModeController
 
 const COUGAR_SCENE: PackedScene = preload("res://scenes/entities/enemies/cougar.tscn")
 const HIPPIE_SCENE: PackedScene = preload("res://scenes/entities/enemies/hippie.tscn")
+const RAM_SCENE: PackedScene = preload("res://scenes/entities/enemies/ram.tscn")
 
 @export var player: Node2D
 @export var spawn_radius: float = 800.0
@@ -82,9 +83,11 @@ func spawn_once() -> Node:
 	return enemy_instance
 
 func _pick_enemy_scene() -> PackedScene:
-	var roll := randi() % 2
+	var roll := randi() % 3
 	if roll == 0:
 		return COUGAR_SCENE
+	if roll == 1:
+		return RAM_SCENE
 	return HIPPIE_SCENE
 
 func _get_spawn_parent() -> Node:
