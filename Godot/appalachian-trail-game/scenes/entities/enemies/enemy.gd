@@ -44,7 +44,7 @@ var can_play_audio: bool = true
 
 @onready var deathsprite = preload("res://scenes/entities/enemies/Death.tscn")
 
-@onready var player = $"../Player"
+@onready var player: Node2D = get_node_or_null("../Player") as Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
@@ -224,7 +224,9 @@ func update_state() -> void:
 
 func _on_death() -> void:
 	state = State.DEAD
-	ScoreManager.add_points(5)
+	var score_manager := get_node_or_null("/root/ScoreManager")
+	if score_manager != null:
+		score_manager.call("add_points", 5)
 
 	var deathsprite_instance = deathsprite.instantiate()
 	deathsprite_instance.global_position = global_position

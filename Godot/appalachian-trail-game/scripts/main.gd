@@ -7,21 +7,29 @@ const ENDLESS_MODE_CONTROLLER_SCRIPT := preload("res://scripts/endless_mode_cont
 
 var _endless_controller: Node = null
 
+func _score_manager() -> Node:
+	return get_node_or_null("/root/ScoreManager")
+
 func _ready() -> void:
 	var wave_controller: WaveController = $WaveController
 	if wave_controller == null:
 		return
 
+	var score_manager := _score_manager()
+	if score_manager != null:
+		score_manager.call("show_start_screen")
 	wave_controller.waves = _build_main_waves()
 
 	if not wave_controller.waves_completed.is_connected(_on_waves_completed):
 		wave_controller.waves_completed.connect(_on_waves_completed)
 
-	if not ScoreManager.endless_requested.is_connected(_on_endless_requested):
-		ScoreManager.endless_requested.connect(_on_endless_requested)
+	if score_manager != null and not score_manager.endless_requested.is_connected(_on_endless_requested):
+		score_manager.endless_requested.connect(_on_endless_requested)
 
 func _on_waves_completed() -> void:
-	ScoreManager.end_game("win", true)
+	var score_manager := _score_manager()
+	if score_manager != null:
+		score_manager.call("end_game", "win", true)
 
 func _on_endless_requested() -> void:
 	if _endless_controller != null and is_instance_valid(_endless_controller):

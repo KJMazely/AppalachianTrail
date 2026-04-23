@@ -39,4 +39,6 @@ func _on_enemy_removed():
 	# Check if we have finished spawning all enemies 
 	# check if the last one just died
 	if spawned_count >= enemies_to_spawn and active_enemies <= 0:
-		ScoreManager.end_game()
+		var score_manager := get_node_or_null("/root/ScoreManager")
+		if score_manager != null:
+			score_manager.call("end_game")

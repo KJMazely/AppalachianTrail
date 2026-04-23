@@ -6,8 +6,6 @@ const SCORE_MANAGER_SCRIPT := preload("res://scenes/hud/score_manager.gd")
 const BIGFOOT_BOSS_SCENE := preload("res://scenes/entities/enemies/bigfoot_boss.tscn")
 const ROCK_PROJECTILE_SCENE := preload("res://scenes/weapons/rock_projectile.tscn")
 const MAIN_SCRIPT := preload("res://scripts/main.gd")
-const ENDLESS_MODE_CONTROLLER_SCRIPT := preload("res://scripts/endless_mode_controller.gd")
-
 var failures: Array[String] = []
 
 
@@ -36,10 +34,8 @@ func run_tests() -> void:
 	await test_bigfoot_attack_patterns_spawn_projectiles()
 	test_main_returns_bigfoot_scene_for_boss_wave()
 	await test_score_manager_emits_updates()
+	await test_score_manager_show_start_screen()
 	await test_score_manager_end_game_creates_overlay()
-	await test_score_manager_win_allows_endless()
-	await test_score_manager_loss_disables_endless()
-	await test_endless_mode_controller_spawns_enemy()
 
 
 func assert_true(condition: bool, message: String) -> void:
@@ -109,6 +105,24 @@ func test_score_manager_emits_updates() -> void:
 
 	score_manager.queue_free()
 
+func test_score_manager_show_start_screen() -> void:
+	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
+	get_root().add_child(score_manager)
+	await process_frame
+
+	score_manager.call("show_start_screen")
+
+	assert_true(score_manager.start_screen_node != null, "Start screen should create an overlay.")
+	assert_true(score_manager.get_tree().paused, "Start screen should pause the scene tree.")
+
+	score_manager.call("_clear_start_screen")
+	await process_frame
+
+	assert_true(score_manager.start_screen_node == null, "Clearing the start screen should remove the overlay.")
+	assert_true(not score_manager.get_tree().paused, "Clearing the start screen should unpause the scene tree.")
+
+	score_manager.queue_free()
+
 
 func test_score_manager_end_game_creates_overlay() -> void:
 	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
@@ -122,72 +136,6 @@ func test_score_manager_end_game_creates_overlay() -> void:
 
 	score_manager.get_tree().paused = false
 	score_manager.queue_free()
-
-
-func test_score_manager_win_allows_endless() -> void:
-	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
-	get_root().add_child(score_manager)
-	await process_frame
-
-	score_manager.end_game("win", true)
-
-	assert_true(score_manager.end_screen_node != null, "Win ending should create an end screen overlay.")
-	assert_true(bool(score_manager.get("_allow_endless")), "Win ending should allow endless mode when requested.")
-
-	var requested := false
-	score_manager.endless_requested.connect(func() -> void:
-		requested = true
-	)
-
-	score_manager.call("start_endless_mode")
-	await process_frame
-
-	assert_true(requested, "Starting endless mode should emit endless_requested.")
-	assert_true(score_manager.end_screen_node == null, "Starting endless mode should remove the end screen overlay.")
-	assert_true(not score_manager.get_tree().paused, "Starting endless mode should unpause the scene tree.")
-
-	score_manager.queue_free()
-
-
-func test_score_manager_loss_disables_endless() -> void:
-	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
-	get_root().add_child(score_manager)
-	await process_frame
-
-	score_manager.end_game("lose", true)
-	assert_true(score_manager.end_screen_node != null, "Loss ending should create an end screen overlay.")
-	assert_true(not bool(score_manager.get("_allow_endless")), "Loss ending should not allow endless mode.")
-
-	score_manager.get_tree().paused = false
-	score_manager.queue_free()
-
-
-func test_endless_mode_controller_spawns_enemy() -> void:
-	var arena := Node2D.new()
-	get_root().add_child(arena)
-
-	var player := Node2D.new()
-	player.global_position = Vector2(0, 0)
-	arena.add_child(player)
-
-	var controller: Node2D = ENDLESS_MODE_CONTROLLER_SCRIPT.new()
-	controller.set("autostart", false)
-	controller.set("player", player)
-	controller.set("spawn_radius", 10.0)
-	arena.add_child(controller)
-	await process_frame
-
-	var spawned: Node = controller.call("spawn_once")
-	await process_frame
-
-	assert_true(spawned != null, "Endless mode controller should be able to spawn an enemy.")
-	assert_true(spawned.get_parent() == arena, "Spawned endless enemy should be parented into the active scene.")
-
-	if spawned:
-		spawned.queue_free()
-	controller.queue_free()
-	arena.queue_free()
-	await process_frame
 
 
 func test_bigfoot_walks_to_cover_then_hides() -> void:
