@@ -12,6 +12,7 @@ func _ready() -> void:
 	if wave_controller == null:
 		return
 
+	ScoreManager.show_start_screen()
 	wave_controller.waves = _build_main_waves()
 
 	if not wave_controller.waves_completed.is_connected(_on_waves_completed):

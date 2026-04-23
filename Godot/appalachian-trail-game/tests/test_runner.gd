@@ -36,6 +36,7 @@ func run_tests() -> void:
 	await test_bigfoot_attack_patterns_spawn_projectiles()
 	test_main_returns_bigfoot_scene_for_boss_wave()
 	await test_score_manager_emits_updates()
+	await test_score_manager_show_start_screen()
 	await test_score_manager_end_game_creates_overlay()
 	await test_score_manager_win_allows_endless()
 	await test_score_manager_loss_disables_endless()
@@ -106,6 +107,24 @@ func test_score_manager_emits_updates() -> void:
 	assert_equal(score_manager.score, 12, "Score manager should accumulate points.")
 	assert_equal(received_scores.size(), 2, "Score manager should emit on each score change.")
 	assert_equal(received_scores.back(), 12, "Score change signal should publish the latest score.")
+
+	score_manager.queue_free()
+
+func test_score_manager_show_start_screen() -> void:
+	var score_manager: Node = SCORE_MANAGER_SCRIPT.new()
+	get_root().add_child(score_manager)
+	await process_frame
+
+	score_manager.call("show_start_screen")
+
+	assert_true(score_manager.start_screen_node != null, "Start screen should create an overlay.")
+	assert_true(score_manager.get_tree().paused, "Start screen should pause the scene tree.")
+
+	score_manager.call("_clear_start_screen")
+	await process_frame
+
+	assert_true(score_manager.start_screen_node == null, "Clearing the start screen should remove the overlay.")
+	assert_true(not score_manager.get_tree().paused, "Clearing the start screen should unpause the scene tree.")
 
 	score_manager.queue_free()
 
