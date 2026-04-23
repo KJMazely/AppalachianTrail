@@ -2,7 +2,7 @@ extends Node2D
 
 enum State { IDLE, ATTACK }
 
-@export var shootSpeed = 20000.0
+@export var shootSpeed = 2.0
 const BULLET = preload("res://scenes/weapons/bullet.tscn")
 
 var state: State = State.IDLE
