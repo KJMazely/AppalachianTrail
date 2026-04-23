@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_jyhfs"]
-[ext_resource type="Script" uid="uid://54vx5alaqupe" path="res://scripts/main.gd" id="3_main"]
+[ext_resource type="Script" uid="uid://qpe7bwpmel75" path="res://scripts/main.gd" id="3_main"]
 [ext_resource type="Script" uid="uid://c0h70l1fi1vr8" path="res://scripts/wave_controller.gd" id="4_wave_controller"]
 [ext_resource type="Texture2D" uid="uid://bprmf2g8c0cp1" path="res://sprites/props/tree.png" id="5_tree_texture"]
 [ext_resource type="Texture2D" uid="uid://dv4ieyqjmoqo0" path="res://sprites/maps/TileMapMountain_3.png" id="6_tefeu"]
 [ext_resource type="AudioStream" uid="uid://bxsyvxjup7yum" path="res://audio/winters-approach.mp3" id="7_choun"]
 [ext_resource type="AudioStream" uid="uid://bx8xsixaswpub" path="res://audio/RDR2 - Prologue Fight.mp3" id="10_trceg"]
 
-[sub_resource type="Resource" id="Resource_a8y0u"]
+[sub_resource type="Resource" id="Resource_tipki"]
 resource_local_to_scene = true
 script = ExtResource("2_jyhfs")
 metadata/_custom_type_script = "uid://b27gvc74owpnb"
@@ -37,8 +37,8 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_85g3d"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 4
+physics_layer_0/collision_layer = 5
+physics_layer_0/collision_mask = 5
 sources/1 = SubResource("TileSetAtlasSource_tipki")
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_a8y0u"]
@@ -97,7 +97,7 @@ scale = Vector2(0.65, 0.65)
 texture = ExtResource("5_tree_texture")
 
 [node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_sugp2")]
-stats = SubResource("Resource_a8y0u")
+stats = SubResource("Resource_tipki")
 
 [node name="WaveController" type="Node2D" parent="." unique_id=1474090355 node_paths=PackedStringArray("player")]
 script = ExtResource("4_wave_controller")
