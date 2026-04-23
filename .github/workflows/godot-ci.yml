@@ -2,7 +2,11 @@ name: Godot CI
 
 on:
   push:
+    branches:
+      - GameDev
   pull_request:
+    branches:
+      - GameDev
 
 jobs:
   test:
@@ -55,7 +59,7 @@ jobs:
 
       - name: Upload Godot logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: godot-logs
           path: |
