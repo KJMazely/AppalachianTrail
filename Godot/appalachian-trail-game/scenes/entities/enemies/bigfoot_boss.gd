@@ -367,7 +367,9 @@ func handle_hit(hitter_position: Vector2) -> void:
 
 func _on_death() -> void:
 	state = BossState.DEAD
-	ScoreManager.add_points(score_value)
+	var score_manager := get_node_or_null("/root/ScoreManager")
+	if score_manager != null:
+		score_manager.call("add_points", score_value)
 
 	if death_effect_scene:
 		var death_effect := death_effect_scene.instantiate()

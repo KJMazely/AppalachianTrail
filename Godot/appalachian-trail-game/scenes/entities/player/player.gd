@@ -51,10 +51,13 @@ func _ready() -> void:
 		stats.health_depleted.connect(_on_death)
 		
 		# Connect health changes to the ScoreManager
-		stats.health_changed.connect(ScoreManager.set_health)
+		var score_manager := get_node_or_null("/root/ScoreManager")
+		if score_manager != null:
+			stats.health_changed.connect(score_manager.set_health)
 		
 		# Initialize the health immediately on load
-		ScoreManager.set_health(stats.health, stats.current_max_health)
+		if score_manager != null:
+			score_manager.set_health(stats.health, stats.current_max_health)
 		
 		print("Player: Stats connected for ", name)
 	
@@ -149,7 +152,9 @@ func _on_death() -> void:
 	print("Player: _on_death called for ", name)
 	state = State.DEAD
 	queue_free()
-	ScoreManager.end_game("lose", false)
+	var score_manager := get_node_or_null("/root/ScoreManager")
+	if score_manager != null:
+		score_manager.call("end_game", "lose", false)
 
 
 # --- NEW: AUDIO HELPER FUNCTIONS ---
