@@ -32,7 +32,7 @@ def read_user_by_id(user_id):
 def update_user_score(user_id, new_score):
     with Session() as session:
         user = session.query(User).filter_by(id=user_id).first()
-        if user:
+        if user and new_score > user.score:  # Only update if the new score is higher
             user.score = new_score
             session.commit()
             return True
