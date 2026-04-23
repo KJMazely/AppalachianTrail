@@ -44,7 +44,7 @@ var can_play_audio: bool = true
 
 @onready var deathsprite = preload("res://scenes/entities/enemies/Death.tscn")
 
-@onready var player = $"../Player"
+@onready var player: Node2D = get_node_or_null("../Player") as Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]

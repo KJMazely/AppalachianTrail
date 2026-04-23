@@ -64,10 +64,17 @@ var _knockback_velocity: Vector2 = Vector2.ZERO
 var _initialized_cover_walk: bool = false
 var _opening_teleports_left: int = 0
 
-@onready var player: Node2D = $"../Player"
+@onready var player: Node2D = get_node_or_null("../Player") as Node2D
 @onready var sprite: Node2D = $AnimatedSprite2D
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var death_effect_scene: PackedScene = preload("res://scenes/entities/enemies/Death.tscn")
+
+func _get_projectile_parent() -> Node:
+	if get_parent() != null:
+		return get_parent()
+	if get_tree() != null and get_tree().current_scene != null:
+		return get_tree().current_scene
+	return get_tree().root
 
 func _ready() -> void:
 	if stats:
@@ -300,7 +307,7 @@ func _fire_boulder() -> void:
 	rock.projectile_attack = boulder_attack_value
 	rock.projectile_size_scale = 1.8
 	rock.set_direction(global_position.direction_to(player.global_position))
-	get_tree().root.add_child(rock)
+	_get_projectile_parent().add_child(rock)
 	_play_sound(throw_sound)
 
 func _fire_split_shot() -> void:
@@ -325,7 +332,7 @@ func _fire_split_shot() -> void:
 		pebble.projectile_attack = pebble_attack_value
 		pebble.projectile_size_scale = 0.8
 		pebble.set_direction(shot_direction)
-		get_tree().root.add_child(pebble)
+		_get_projectile_parent().add_child(pebble)
 
 	_play_sound(throw_sound)
 
