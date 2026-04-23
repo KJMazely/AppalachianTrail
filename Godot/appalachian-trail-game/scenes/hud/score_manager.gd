@@ -95,7 +95,7 @@ func _input(event):
 				return
 
 func start_endless_mode() -> void:
-	if end_screen_node == null:
+	if not _allow_endless:
 		return
 
 	_restore_faded_audio()
