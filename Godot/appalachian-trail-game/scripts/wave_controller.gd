@@ -44,16 +44,57 @@ func _pick_spawn(desired: Vector2) -> Vector2:
 	var space := get_world_2d().direct_space_state
 	var exclude: Array[RID] = []; if player != null and is_instance_valid(player): exclude = [player.get_rid()]
 
-	for _i in range(20):
-		var c := Vector2i(clamp(base.x + randi_range(-6, 6), minc.x, maxc.x), clamp(base.y + randi_range(-6, 6), minc.y, maxc.y))
-		if m.get_cell_source_id(c) == -1: continue
+	# Never return an empty cell: used_rect can contain "holes" in sparse maps.
+	# Try near the desired spawn first (keeps enemies around the player), then fall back to any used cell.
+	for _i in range(30):
+		var c := Vector2i(
+			clamp(base.x + randi_range(-8, 8), minc.x, maxc.x),
+			clamp(base.y + randi_range(-8, 8), minc.y, maxc.y)
+		)
+		if m.get_cell_source_id(c) == -1:
+			continue
 		var w := m.to_global(m.map_to_local(c))
 		if mask != 0:
 			var q := PhysicsPointQueryParameters2D.new()
-			q.position = w; q.collision_mask = mask; q.collide_with_bodies = true; q.collide_with_areas = false; q.exclude = exclude
-			if not space.intersect_point(q, 1).is_empty(): continue
+			q.position = w
+			q.collision_mask = mask
+			q.collide_with_bodies = true
+			q.collide_with_areas = false
+			q.exclude = exclude
+			if not space.intersect_point(q, 1).is_empty():
+				continue
 		return w
-	return m.to_global(m.map_to_local(Vector2i(clamp(base.x, minc.x, maxc.x), clamp(base.y, minc.y, maxc.y))))
+
+	var used_cells: Array[Vector2i] = []
+	if m.has_method("get_used_cells"):
+		used_cells = m.get_used_cells()
+
+	if used_cells.is_empty():
+		# Fallback for older Godot builds: brute-scan the used_rect for actual tiles.
+		for y in range(minc.y, maxc.y + 1):
+			for x in range(minc.x, maxc.x + 1):
+				var c := Vector2i(x, y)
+				if m.get_cell_source_id(c) != -1:
+					used_cells.append(c)
+
+	if used_cells.is_empty():
+		return desired
+
+	for _j in range(60):
+		var c := used_cells[randi() % used_cells.size()]
+		var w := m.to_global(m.map_to_local(c))
+		if mask != 0:
+			var q2 := PhysicsPointQueryParameters2D.new()
+			q2.position = w
+			q2.collision_mask = mask
+			q2.collide_with_bodies = true
+			q2.collide_with_areas = false
+			q2.exclude = exclude
+			if not space.intersect_point(q2, 1).is_empty():
+				continue
+		return w
+
+	return desired
 func _ready() -> void:
 	_is_shutting_down = false
 	if autostart:
