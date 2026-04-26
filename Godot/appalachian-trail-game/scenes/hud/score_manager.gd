@@ -1,8 +1,5 @@
 extends Node
 
-const END_AUDIO_FADE_DURATION := 1.5
-const END_AUDIO_TARGET_DB := -40.0
-
 var score := 0
 signal ScoreChanged(new_score)
 
@@ -16,7 +13,6 @@ signal endless_requested
 
 var _end_reason: String = ""
 var _allow_endless: bool = false
-var _faded_audio_players: Array[Dictionary] = []
 
 func _ready():
 	# This ensures the score_manager keeps working even when the game is paused
@@ -53,7 +49,6 @@ func end_game(reason: String = "lose", allow_endless: bool = false) -> void:
 		return
 
 	_clear_start_screen()
-	_fade_active_audio()
 	_end_reason = reason
 	_allow_endless = allow_endless and reason == "win"
 	
@@ -98,7 +93,6 @@ func start_endless_mode() -> void:
 	if not _allow_endless:
 		return
 
-	_restore_faded_audio()
 	get_tree().paused = false
 
 	if end_screen_node:
@@ -163,35 +157,3 @@ func _clear_start_screen() -> void:
 	if start_screen_node:
 		start_screen_node.queue_free()
 		start_screen_node = null
-
-func _fade_active_audio() -> void:
-	_faded_audio_players.clear()
-	_collect_playing_audio(get_tree().root)
-
-	for entry in _faded_audio_players:
-		var audio_player: Node = entry["player"]
-		var tween := create_tween()
-		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-		tween.tween_property(audio_player, "volume_db", END_AUDIO_TARGET_DB, END_AUDIO_FADE_DURATION)
-
-func _restore_faded_audio() -> void:
-	for entry in _faded_audio_players:
-		var audio_player: Node = entry["player"]
-		if not is_instance_valid(audio_player):
-			continue
-		audio_player.volume_db = entry["volume_db"]
-
-	_faded_audio_players.clear()
-
-func _collect_playing_audio(node: Node) -> void:
-	if node is AudioStreamPlayer or node is AudioStreamPlayer2D:
-		if node.playing:
-			_faded_audio_players.append({
-				"player": node,
-				"volume_db": node.volume_db,
-			})
-
-	for child in node.get_children():
-		var child_node := child as Node
-		if child_node != null:
-			_collect_playing_audio(child_node)
