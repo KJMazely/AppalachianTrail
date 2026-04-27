@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bsuklr3fuh1o4"
+path="res://.godot/imported/ram hurt 1.ogg-e7f733cfa47174b1b0b47119938e7598.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/enemies/ram/ram hurt 1.ogg"
+dest_files=["res://.godot/imported/ram hurt 1.ogg-e7f733cfa47174b1b0b47119938e7598.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

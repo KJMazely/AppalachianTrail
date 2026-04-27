@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Stats" format=3 uid="uid://ctl7o7tqpadlh"]
+
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="1_cstx8"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "hippie_stats"
+script = ExtResource("1_cstx8")
+base_max_health = 130
+faction = 1
+metadata/_custom_type_script = "uid://b27gvc74owpnb"

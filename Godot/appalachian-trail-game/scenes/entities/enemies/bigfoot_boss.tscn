@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://b64rhlq8nqadg"]
+
+[ext_resource type="Script" uid="uid://bs4scvnpgm8ck" path="res://scenes/entities/enemies/bigfoot_boss.gd" id="1_boss_script"]
+[ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="2_hurtbox_script"]
+[ext_resource type="AudioStream" uid="uid://c0uq16vt4gr1l" path="res://audio/enemies/bigfoot/bigfoot throw 1.wav" id="3_6yu8m"]
+[ext_resource type="Resource" uid="uid://biy28bmv20ef4" path="res://resources/bigfoot_stats.tres" id="3_boss_stats"]
+[ext_resource type="AudioStream" uid="uid://inctkimgaa5t" path="res://audio/enemies/bigfoot/bigfoot hurt 1.wav" id="3_mb71c"]
+[ext_resource type="AudioStream" uid="uid://chkleb2np64f4" path="res://audio/enemies/bigfoot/bigfoot hurt 2.wav" id="4_6176d"]
+[ext_resource type="Texture2D" uid="uid://di6qm3k8msknw" path="res://sprites/enemies/bigfoot.png" id="5_bigfoot_texture"]
+[ext_resource type="AudioStream" uid="uid://dj4pjy8x5cyym" path="res://audio/enemies/bigfoot/bigfoot hurt 3.wav" id="5_wkf7f"]
+[ext_resource type="AudioStream" uid="uid://bqlhsxn3tvi8i" path="res://audio/enemies/bigfoot/bigfoot hurt 4.wav" id="6_cdoeq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4e0lt"]
+random_pitch = 1.1892071
+streams_count = 4
+stream_0/stream = ExtResource("3_mb71c")
+stream_1/stream = ExtResource("4_6176d")
+stream_2/stream = ExtResource("5_wkf7f")
+stream_3/stream = ExtResource("6_cdoeq")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wf3xo"]
+random_pitch = 1.1892071
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("3_6yu8m")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mb71c"]
+random_pitch = 1.1892071
+streams_count = 3
+stream_0/stream = ExtResource("3_mb71c")
+stream_1/stream = ExtResource("4_6176d")
+stream_2/stream = ExtResource("6_cdoeq")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
+radius = 34.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(52, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ingb"]
+atlas = ExtResource("5_bigfoot_texture")
+region = Rect2(0, 0, 128, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yu8m"]
+atlas = ExtResource("5_bigfoot_texture")
+region = Rect2(128, 0, 128, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wf3xo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ingb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yu8m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="BigfootBoss" type="CharacterBody2D" unique_id=1289311587]
+script = ExtResource("1_boss_script")
+stats = ExtResource("3_boss_stats")
+hurt_sound = SubResource("AudioStreamRandomizer_4e0lt")
+throw_sound = SubResource("AudioStreamRandomizer_wf3xo")
+death_sound = SubResource("AudioStreamRandomizer_mb71c")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1428192250]
+script = ExtResource("2_hurtbox_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=379512311]
+position = Vector2(0, -22)
+shape = SubResource("CircleShape2D_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1448710073]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1984296423]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=482544074]
+sprite_frames = SubResource("SpriteFrames_wf3xo")
+autoplay = "default"

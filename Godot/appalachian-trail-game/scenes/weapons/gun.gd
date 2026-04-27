@@ -2,7 +2,7 @@ extends Node2D
 
 enum State { IDLE, ATTACK }
 
-@export var shootSpeed = 1.0
+@export var shootSpeed = 2.0
 const BULLET = preload("res://scenes/weapons/bullet.tscn")
 
 var state: State = State.IDLE
@@ -48,7 +48,7 @@ func update_gun_rotation():
 		rotation = clamped_angle
 		scale.y = facing_direction
 
-func shoot():
+func shoot() -> bool:
 	if canShoot:
 		var mouse_pos = get_global_mouse_position()
 		var dir_to_mouse = (mouse_pos - global_position).normalized()
@@ -68,6 +68,10 @@ func shoot():
 			
 			state = State.ATTACK
 			update_animation()
+			
+			return true # NEW: Tells the player "Yes, a bullet fired!"
+
+	return false # NEW: Tells the player "No, it is on cooldown or aiming backwards."
 
 # This is called by your Player script when they move Left or Right
 func setup_direction(direction: Vector2):

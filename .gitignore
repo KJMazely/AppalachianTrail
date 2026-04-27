@@ -153,3 +153,11 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+Godot/appalachian-trail-game/tests/test_runner.gd.uid
+Godot/appalachian-trail-game/Godot_v4.6-stable_win64.exe
+Godot/appalachian-trail-game/scripts/main.gd.uid
+Godot/appalachian-trail-game/scripts/wave_controller.gd.uid
+Godot/appalachian-trail-game/tests/support/wave_test_enemy.gd.uid
+Godot/appalachian-trail-game/desktop.ini
+Godot/desktop.ini
+Godot/Godot_v4.6-stable_win64.exe

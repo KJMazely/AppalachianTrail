@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://gik20yu15uos"
+path="res://.godot/imported/ram 2.ogg-beb576dc6747ee08da2e402ebd701ab5.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/enemies/ram/ram 2.ogg"
+dest_files=["res://.godot/imported/ram 2.ogg-beb576dc6747ee08da2e402ebd701ab5.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

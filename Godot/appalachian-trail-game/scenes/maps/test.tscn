@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://bxvt1eqbcgiuy"]
+
+[ext_resource type="PackedScene" uid="uid://baqswhdnk13gw" path="res://scenes/entities/player/player.tscn" id="1_0jfhv"]
+[ext_resource type="Texture2D" uid="uid://bprmf2g8c0cp1" path="res://sprites/props/tree.png" id="2_3nlp5"]
+[ext_resource type="Script" uid="uid://b27gvc74owpnb" path="res://scripts/stats.gd" id="2_dlq7p"]
+[ext_resource type="PackedScene" uid="uid://b64rhlq8nqadg" path="res://scenes/entities/enemies/bigfoot_boss.tscn" id="5_3nlp5"]
+[ext_resource type="AudioStream" uid="uid://bxsyvxjup7yum" path="res://audio/winters-approach.mp3" id="6_xc7b3"]
+
+[sub_resource type="Resource" id="Resource_xc7b3"]
+resource_local_to_scene = true
+script = ExtResource("2_dlq7p")
+metadata/_custom_type_script = "uid://b27gvc74owpnb"
+
+[sub_resource type="Resource" id="Resource_r2xvh"]
+resource_local_to_scene = true
+resource_name = "bigfoot_stats"
+script = ExtResource("2_dlq7p")
+base_max_health = 260
+base_attack = 20
+faction = 1
+
+[node name="Test" type="Node2D" unique_id=1910527724]
+
+[node name="WinterAmbience" type="AudioStreamPlayer" parent="." unique_id=1506188645]
+stream = ExtResource("6_xc7b3")
+volume_db = -13.0
+autoplay = true
+
+[node name="BossArena" type="Node2D" parent="." unique_id=1619868767]
+
+[node name="TreeCover01" type="Node2D" parent="BossArena" unique_id=489698397]
+position = Vector2(-460, -200)
+
+[node name="CoverMarker" type="Marker2D" parent="BossArena/TreeCover01" unique_id=449585939 groups=["boss_tree_cover"]]
+
+[node name="TreeSprite" type="Sprite2D" parent="BossArena/TreeCover01" unique_id=336543577]
+z_index = 12
+position = Vector2(0, 10)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_3nlp5")
+
+[node name="TreeCover02" type="Node2D" parent="BossArena" unique_id=1633656283]
+position = Vector2(450, -220)
+
+[node name="CoverMarker" type="Marker2D" parent="BossArena/TreeCover02" unique_id=1938200589 groups=["boss_tree_cover"]]
+
+[node name="TreeSprite" type="Sprite2D" parent="BossArena/TreeCover02" unique_id=84359750]
+z_index = 12
+position = Vector2(0, 10)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_3nlp5")
+
+[node name="TreeCover03" type="Node2D" parent="BossArena" unique_id=772686753]
+position = Vector2(-420, 280)
+
+[node name="CoverMarker" type="Marker2D" parent="BossArena/TreeCover03" unique_id=1960574467 groups=["boss_tree_cover"]]
+
+[node name="TreeSprite" type="Sprite2D" parent="BossArena/TreeCover03" unique_id=449564207]
+z_index = 12
+position = Vector2(0, 10)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_3nlp5")
+
+[node name="TreeCover04" type="Node2D" parent="BossArena" unique_id=1735233633]
+position = Vector2(430, 300)
+
+[node name="CoverMarker" type="Marker2D" parent="BossArena/TreeCover04" unique_id=494772493 groups=["boss_tree_cover"]]
+
+[node name="TreeSprite" type="Sprite2D" parent="BossArena/TreeCover04" unique_id=1025855032]
+z_index = 12
+position = Vector2(0, 10)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_3nlp5")
+
+[node name="Player" parent="." unique_id=1734132446 instance=ExtResource("1_0jfhv")]
+stats = SubResource("Resource_xc7b3")
+
+[node name="BigfootBoss" parent="." unique_id=1289311587 instance=ExtResource("5_3nlp5")]
+position = Vector2(355, 298)
+stats = SubResource("Resource_r2xvh")

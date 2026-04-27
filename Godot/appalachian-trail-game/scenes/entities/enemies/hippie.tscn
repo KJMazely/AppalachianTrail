@@ -1,0 +1,261 @@
+[gd_scene format=3 uid="uid://lotn7rg4verc"]
+
+[ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="1_6cbc0"]
+[ext_resource type="Script" uid="uid://6w6452r114h" path="res://scenes/entities/enemies/enemy.gd" id="1_hmbgm"]
+[ext_resource type="Resource" uid="uid://ctl7o7tqpadlh" path="res://resources/hippie_stats.tres" id="2_hmbgm"]
+[ext_resource type="AudioStream" uid="uid://dwhyc7k1lh8l3" path="res://audio/enemies/hippie/hippie hurt 1.mp3" id="3_x0ied"]
+[ext_resource type="AudioStream" uid="uid://dvolsce6d4e7i" path="res://audio/enemies/hippie/hippie hurt 2.mp3" id="4_o13kx"]
+[ext_resource type="Texture2D" uid="uid://cj56ph6i7uotv" path="res://sprites/enemies/Hippie.png" id="4_ovnob"]
+[ext_resource type="AudioStream" uid="uid://nl4bybilw8v8" path="res://audio/enemies/hippie/hippie hurt 3.mp3" id="5_xyyj1"]
+[ext_resource type="AudioStream" uid="uid://c0ru07xvfky1r" path="res://audio/enemies/hippie/hippie hurt 4.mp3" id="6_kr7sj"]
+[ext_resource type="AudioStream" uid="uid://76fckljcp0su" path="res://audio/enemies/hippie/hippie shoot 1.mp3" id="7_x0ied"]
+[ext_resource type="AudioStream" uid="uid://ddh6drh4vnbfq" path="res://audio/enemies/hippie/hippie death 2.mp3" id="8_1tbiu"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_grglq"]
+load_path = "res://.godot/imported/Hippie_Bullet.png-a3d1bf72524fe4a3047144107b2166d1.ctex"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7rpsh"]
+random_pitch = 1.1892071
+streams_count = 4
+stream_0/stream = ExtResource("3_x0ied")
+stream_1/stream = ExtResource("4_o13kx")
+stream_2/stream = ExtResource("5_xyyj1")
+stream_3/stream = ExtResource("6_kr7sj")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xyyj1"]
+playback_mode = 1
+random_pitch = 1.4142135
+streams_count = 1
+stream_0/stream = ExtResource("7_x0ied")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x0ied"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("8_1tbiu")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20lqd"]
+radius = 29.017237
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_635qg"]
+size = Vector2(38, 20)
+
+[sub_resource type="Animation" id="Animation_635qg"]
+length = 0.033333335
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bjvvg"]
+resource_name = "attack"
+length = 0.08242034
+step = 0.03
+
+[sub_resource type="Animation" id="Animation_pm80n"]
+resource_name = "dead"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16666667, 0.44, 0.8, 1.22),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.3700098, -0.7400196, -2.5883234]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_58kc7"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0065699834),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_nh4ur"]
+resource_name = "moving"
+length = 0.4212458
+loop_mode = 1
+step = 0.024
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.17438392),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bjvvg"]
+_data = {
+&"RESET": SubResource("Animation_635qg"),
+&"attack": SubResource("Animation_bjvvg"),
+&"dead": SubResource("Animation_pm80n"),
+&"idle": SubResource("Animation_58kc7"),
+&"moving": SubResource("Animation_nh4ur")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pm80n"]
+animation = &"dead"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8akj5"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bj7e2"]
+animation = &"moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1murt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5sj0x"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ovg4i"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gflvi"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_20lqd"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j3iiu"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7wli1"]
+states/dead/node = SubResource("AnimationNodeAnimation_pm80n")
+states/dead/position = Vector2(721.94006, 112.28424)
+states/idle/node = SubResource("AnimationNodeAnimation_8akj5")
+states/idle/position = Vector2(323, 88)
+states/moving/node = SubResource("AnimationNodeAnimation_bj7e2")
+states/moving/position = Vector2(556, 68)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1murt"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_5sj0x"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_ovg4i"), "moving", "dead", SubResource("AnimationNodeStateMachineTransition_gflvi"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_20lqd"), "dead", "End", SubResource("AnimationNodeStateMachineTransition_j3iiu")]
+graph_offset = Vector2(38.34012, 23.484243)
+
+[sub_resource type="AudioStream" id="AudioStream_ovnob"]
+
+[node name="Hippie" type="CharacterBody2D" unique_id=1734132446]
+script = ExtResource("1_hmbgm")
+stats = ExtResource("2_hmbgm")
+can_shoot = true
+shoot_range = 500.0
+projectile_speed = 430.0
+projectile_texture = SubResource("CompressedTexture2D_grglq")
+projectile_size_scale = 0.8
+hurt_sound = SubResource("AudioStreamRandomizer_7rpsh")
+shoot_sound = SubResource("AudioStreamRandomizer_xyyj1")
+death_sound = SubResource("AudioStreamRandomizer_x0ied")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=398838605]
+position = Vector2(0, -28)
+texture = ExtResource("4_ovnob")
+hframes = 2
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1613962171]
+script = ExtResource("1_6cbc0")
+metadata/_custom_type_script = "uid://dajer177ve2lr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=693396269]
+position = Vector2(-1, -22)
+shape = SubResource("CircleShape2D_20lqd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=447411323]
+shape = SubResource("RectangleShape2D_635qg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1006706540]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1482918078]
+libraries/ = SubResource("AnimationLibrary_bjvvg")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1270463253]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_7wli1")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1618296294]
+stream = SubResource("AudioStream_ovnob")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
