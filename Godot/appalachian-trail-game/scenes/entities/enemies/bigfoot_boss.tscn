@@ -2,8 +2,34 @@
 
 [ext_resource type="Script" uid="uid://bs4scvnpgm8ck" path="res://scenes/entities/enemies/bigfoot_boss.gd" id="1_boss_script"]
 [ext_resource type="Script" uid="uid://dajer177ve2lr" path="res://scripts/hurtbox.gd" id="2_hurtbox_script"]
-[ext_resource type="Resource" path="res://resources/bigfoot_stats.tres" id="3_boss_stats"]
+[ext_resource type="AudioStream" uid="uid://c0uq16vt4gr1l" path="res://audio/enemies/bigfoot/bigfoot throw 1.wav" id="3_6yu8m"]
+[ext_resource type="Resource" uid="uid://biy28bmv20ef4" path="res://resources/bigfoot_stats.tres" id="3_boss_stats"]
+[ext_resource type="AudioStream" uid="uid://inctkimgaa5t" path="res://audio/enemies/bigfoot/bigfoot hurt 1.wav" id="3_mb71c"]
+[ext_resource type="AudioStream" uid="uid://chkleb2np64f4" path="res://audio/enemies/bigfoot/bigfoot hurt 2.wav" id="4_6176d"]
 [ext_resource type="Texture2D" uid="uid://di6qm3k8msknw" path="res://sprites/enemies/bigfoot.png" id="5_bigfoot_texture"]
+[ext_resource type="AudioStream" uid="uid://dj4pjy8x5cyym" path="res://audio/enemies/bigfoot/bigfoot hurt 3.wav" id="5_wkf7f"]
+[ext_resource type="AudioStream" uid="uid://bqlhsxn3tvi8i" path="res://audio/enemies/bigfoot/bigfoot hurt 4.wav" id="6_cdoeq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4e0lt"]
+random_pitch = 1.1892071
+streams_count = 4
+stream_0/stream = ExtResource("3_mb71c")
+stream_1/stream = ExtResource("4_6176d")
+stream_2/stream = ExtResource("5_wkf7f")
+stream_3/stream = ExtResource("6_cdoeq")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wf3xo"]
+random_pitch = 1.1892071
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("3_6yu8m")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mb71c"]
+random_pitch = 1.1892071
+streams_count = 3
+stream_0/stream = ExtResource("3_mb71c")
+stream_1/stream = ExtResource("4_6176d")
+stream_2/stream = ExtResource("6_cdoeq")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
 radius = 34.0
@@ -36,6 +62,9 @@ animations = [{
 [node name="BigfootBoss" type="CharacterBody2D" unique_id=1289311587]
 script = ExtResource("1_boss_script")
 stats = ExtResource("3_boss_stats")
+hurt_sound = SubResource("AudioStreamRandomizer_4e0lt")
+throw_sound = SubResource("AudioStreamRandomizer_wf3xo")
+death_sound = SubResource("AudioStreamRandomizer_mb71c")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1428192250]
 script = ExtResource("2_hurtbox_script")
